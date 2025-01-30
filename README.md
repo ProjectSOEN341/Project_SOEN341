@@ -41,11 +41,11 @@ Special Feature
 Frontend 
 * Angular
 
-Backend
-* TBD
+Api
+* SpringBoot
 
 Database
-* TBD
+* MySQL
 
 Extras
 * Agile Development
