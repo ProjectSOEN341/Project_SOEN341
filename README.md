@@ -30,12 +30,12 @@ Special Feature
 
 ## Team Members
 * Arturo Sanchez       - 40283236 - [@DaKingzz](https://github.com//DaKingzz)
-* Sofia Cimon          - 40282210 - link
+* Sofia Cimon          - 40282210 - [@SofiaCimon](https://github.com/SofiaCimon)
 * Sergio Abreo Alvarez - 40274677 - [@pergioa](https://github.com/pergioa)
-* Robert Louis Lando   - 40275679 - link
-* Thomas Shizhuo Chen  - 40274703 - link
-* Andy Cai             - 40282940 - link
-* Kevin Kerr           - 40281044 - link
+* Robert Louis Lando   - 40275679 - [@robert-louis-lando](https://github.com/robert-louis-lando)
+* Thomas Shizhuo Chen  - 40274703 - [@totalevo](https://github.com/totalevo)
+* Andy Cai             - 40282940 - [@NDC0DE](https://github.com/NDC0DE)
+* Kevin Kerr           - 40281044 - [@Kevin7582](https://github.com/Kevin7582)
 
 ## Technologies
 Frontend 
