@@ -10,7 +10,7 @@
 Whether you’re collaborating with a team, connecting with a community, or chatting privately with friends, the platform offers an intuitive and organized space to stay connected. Users can create topic-specific channels, share media, and engage in one-on-one conversations, all while enjoying customizable features that enhance the experience. With a clean interface and robust privacy options, the platform is the perfect hub for meaningful and efficient communication.
 
 ## Objective
-The objective of this project is to succesfully implement all the core feautres the client requires while also providing a comfortable and interesting website for users to enjoy.
+The objective of this project is to succesfully implement all the core features the client requires while also providing a comfortable and interesting website for users to enjoy.
 
 ## Core Features
 Text Channels for Group Communication
