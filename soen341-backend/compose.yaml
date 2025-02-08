@@ -1,3 +1,5 @@
+---
+
 services:
   mysql:
     image: 'mysql:latest'
@@ -6,5 +8,22 @@ services:
       - 'MYSQL_PASSWORD=secret'
       - 'MYSQL_ROOT_PASSWORD=verysecret'
       - 'MYSQL_USER=myuser'
+    volumes:
+      - my-db:/data/my-db
     ports:
       - '3307:3306'
+    networks:
+      - spring-demo
+    restart: unless-stopped
+  mail-dev:
+    container_name: mail-dev-soen
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+networks:
+  spring-demo:
+    driver: bridge
+volumes:
+  my-db:
+    driver: local
