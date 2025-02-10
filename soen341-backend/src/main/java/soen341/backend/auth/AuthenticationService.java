@@ -92,7 +92,7 @@ public class AuthenticationService {
         return codeBuilder.toString();
     }
 
-    public AuthenticationResponse authenticate(@Valid AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
