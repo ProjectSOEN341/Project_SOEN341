@@ -1,5 +1,7 @@
 package soen341.backend.user;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import soen341.backend.role.Role;
 import jakarta.persistence.*;
