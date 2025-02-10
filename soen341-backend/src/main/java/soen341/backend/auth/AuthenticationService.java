@@ -69,7 +69,7 @@ public class AuthenticationService {
                 .user(user)
                 .build();
         tokenRepository.save(token);
-        return null;
+        return generatedToken;
     }
 
     private String generateActivationCode(int length) {
