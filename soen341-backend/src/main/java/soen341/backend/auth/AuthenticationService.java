@@ -43,8 +43,8 @@ public class AuthenticationService {
                 // todo - better exception handling
                 .orElseThrow(() -> new IllegalStateException("ROLE USER was not initialized"));
         var user = User.builder()
-                .firstName(request.getFirstname())
-                .lastName(request.getLastname())
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
