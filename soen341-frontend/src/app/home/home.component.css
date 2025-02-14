@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+.chat-list{
+    width: 20%;
+    margin: 16px;
+    background-color: grey;
+    border-radius: 16px;
+}
+
+.messages{
+    width: 80%;
+    margin: 16px;
+    background-color: lightgrey;
+    border-radius: 16px;
+}
