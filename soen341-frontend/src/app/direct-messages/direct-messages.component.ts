@@ -9,14 +9,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './direct-messages.component.html',
   styleUrl: './direct-messages.component.css',
 })
-export class DirectMessagesComponent implements OnInit {
+export class DirectMessagesComponent {
   private client: Client;
   messages: string[] = [];
   username: string = '1';
   isConnected: boolean = false;
   singleMessage: string = '';
-  // @ts-ignore, to suppress warning related to being undefined
-  private topicSubscription: Subscription;
+
   constructor() {
     this.client = new Client({
       brokerURL: 'ws://localhost:8080/gs-guide-websocket',
@@ -26,7 +25,7 @@ export class DirectMessagesComponent implements OnInit {
       this.subcribe();
     };
   }
-  ngOnInit(): void {}
+
   setAlice() {
     this.username = '1';
     console.log('setting to alice');
