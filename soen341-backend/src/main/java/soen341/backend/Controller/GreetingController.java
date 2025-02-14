@@ -1,10 +1,12 @@
-package soen341.backend;
+package soen341.backend.Controller;
 
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.util.HtmlUtils;
+import soen341.backend.Entity.Greeting;
+import soen341.backend.Entity.HelloMessage;
 
 @Controller
 public class GreetingController {

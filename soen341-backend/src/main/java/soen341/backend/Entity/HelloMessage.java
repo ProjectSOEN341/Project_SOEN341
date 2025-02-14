@@ -1,4 +1,4 @@
-package soen341.backend;
+package soen341.backend.Entity;
 
 public class HelloMessage {
 
