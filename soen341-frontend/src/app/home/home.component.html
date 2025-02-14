@@ -1,13 +1,31 @@
 <div class="container">
-    <div class="chat-list">
-        <div>
+    <div class="sidebar">
+        <h2>Messaging App</h2>
+        <div class="sidebar-header">
             
-        </div>
-    
+            <button mat-raised-button color="primary" (click)="view = 'channels'" [class.active]="view === 'channels'">Channels</button>
+            <button mat-raised-button color="tertiary" (click)="view = 'dms'" [class.active]="view === 'dms'">DMs</button>
+          </div>
+          <h3 *ngIf="view === 'channels'">Channels</h3>
+          <ul *ngIf="view === 'channels'">
+            <button mat-raised-button color="primary" *ngFor="let channel of channels" (click)="selectChannel(channel)">
+              {{ channel.name }}
+            </button>
+          </ul>
+          <h3 *ngIf="view === 'dms'">Direct Messages</h3>
+            <ul *ngIf="view === 'dms'">
+            <button mat-raised-button color="primary" *ngFor="let dm of dms" (click)="selectChannel(dm)">
+                {{ dm.name }}
+            </button>
+            </ul>
     </div>
     <div class="messages">
-
-
+        <h3>{{ selectedChannel?.name || 'Select a chat' }}</h3>
+        <div class="messages">
+            <div *ngFor="let message of selectedChannel?.messages">
+              <strong>{{ message.user }}:</strong> {{ message.text }}
+            </div>
+          </div>
     </div>
 
 </div>
