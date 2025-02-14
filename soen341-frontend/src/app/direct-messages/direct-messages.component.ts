@@ -65,7 +65,4 @@ export class DirectMessagesComponent implements OnInit {
       this.showGreeting(JSON.parse(greeting.body).content);
     });
   }
-  ngOnDestroy() {
-    this.topicSubscription.unsubscribe();
-  }
 }
