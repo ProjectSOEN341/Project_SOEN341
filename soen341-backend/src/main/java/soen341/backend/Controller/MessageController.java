@@ -49,7 +49,7 @@ public class MessageController {
         message.setReceiver(messageDTO.receiver);
         message.setBody(messageDTO.body);
         message.setTimestamp(messageDTO.timestamp);
-        message.setConversationId(savedConversation != null ? savedConversation.getId() : null);
+        message.setConversation(savedConversation);
         messageRepository.save(message);
         return messageDTO;
     }
