@@ -3,7 +3,7 @@
         <h2>Messaging App</h2>
         <div class="sidebar-header">
             
-            <button mat-raised-button color="primary" (click)="view = 'channels'" [class.active]="view === 'channels'">Channels</button>
+            <button mat-raised-button color="mat-raised-button" (click)="view = 'channels'" [class.active]="view === 'channels'">Channels</button>
             <button mat-raised-button color="tertiary" (click)="view = 'dms'" [class.active]="view === 'dms'">DMs</button>
           </div>
           <h3 *ngIf="view === 'channels'">Channels</h3>
@@ -21,10 +21,19 @@
     </div>
     <div class="messages">
         <h3>{{ selectedChannel?.name || 'Select a chat' }}</h3>
+        <hr class="custom-line">
         <div class="messages">
             <div *ngFor="let message of selectedChannel?.messages">
               <strong>{{ message.user }}:</strong> {{ message.text }}
             </div>
+  
+            
+          </div>
+          <div class="message-input">
+            <input type="text" placeholder="Type a message..." />
+            <button>
+              <span class="arrow">➤</span>
+            </button>
           </div>
     </div>
 
