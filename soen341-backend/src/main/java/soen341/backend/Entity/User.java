@@ -1,4 +1,4 @@
-package soen341.backend;
+package soen341.backend.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
