@@ -8,24 +8,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Entity // This tells Hibernate to make a table out of this class
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class Message {
+public class Conversation {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    private String sender;
+    private String user1;
 
-    private String receiver;
+    private String user2;
 
-    private String body;
+    private String role;
 
-    private String timestamp;
 
-    private Integer conversationId;
 }
