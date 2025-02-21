@@ -72,17 +72,33 @@
               id="alice"
               class="btn btn-default"
               type="submit"
-              (click)="setAlice()"
+              (click)="setAliceReceive()"
             >
-              Alice
+              Alice receive
             </button>
             <button
               id="bob"
               class="btn btn-default"
               type="submit"
-              (click)="setBob()"
+              (click)="setBobReceive()"
             >
-              Bob
+              Bob receive
+            </button>
+            <button
+              id="alice-send"
+              class="btn btn-default"
+              type="submit"
+              (click)="setAliceSend()"
+            >
+              Alice send
+            </button>
+            <button
+              id="bob-send"
+              class="btn btn-default"
+              type="submit"
+              (click)="setBobSend()"
+            >
+              Bob send
             </button>
           </div>
         </div>

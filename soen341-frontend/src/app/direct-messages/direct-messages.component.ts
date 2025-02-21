@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Client, Message } from '@stomp/stompjs';
+import { Client } from '@stomp/stompjs';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Message } from '../../interfaces/message';
+
 @Component({
   selector: 'app-direct-messages',
   imports: [FormsModule],
@@ -12,9 +14,11 @@ import { Subscription } from 'rxjs';
 export class DirectMessagesComponent {
   private client: Client;
   messages: string[] = [];
-  username: string = '1';
+  usernameReceive: string = '';
+  usernameSend: string = '';
   isConnected: boolean = false;
   singleMessage: string = '';
+  message!: Message;
 
   constructor() {
     this.client = new Client({
@@ -26,13 +30,22 @@ export class DirectMessagesComponent {
     };
   }
 
-  setAlice() {
-    this.username = '1';
+  setAliceReceive() {
+    this.usernameReceive = '1';
     console.log('setting to alice');
   }
 
-  setBob() {
-    this.username = '2';
+  setBobReceive() {
+    this.usernameReceive = '2';
+    console.log('setting to bob');
+  }
+  setAliceSend() {
+    this.usernameSend = '1';
+    console.log('setting to alice');
+  }
+
+  setBobSend() {
+    this.usernameSend = '2';
     console.log('setting to bob');
   }
   connect() {
@@ -46,11 +59,18 @@ export class DirectMessagesComponent {
     console.log('Disconnected');
   }
   sendName() {
+    
     console.log('trying to send: ' + this.singleMessage);
     if (this.isConnected) {
+      this.message = {
+        sender: this.usernameReceive,
+        receiver: this.usernameSend,
+        body: this.singleMessage,
+        timestamp: new Date().toLocaleString(),
+      }
       this.client.publish({
-        destination: `/app/hello/${this.username}`,
-        body: JSON.stringify({ name: this.singleMessage }),
+        destination: `/app/hello/${this.usernameSend}`,
+        body: JSON.stringify(this.message),
       });
     }
   }
@@ -60,8 +80,8 @@ export class DirectMessagesComponent {
   }
 
   subcribe() {
-    this.client.subscribe(`/topic/greetings/${this.username}`, (greeting) => {
-      this.showGreeting(JSON.parse(greeting.body).content);
+    this.client.subscribe(`/topic/greetings/${this.usernameReceive}`, (m) => {
+      this.showGreeting(JSON.parse(m.body).body);
     });
   }
 }
