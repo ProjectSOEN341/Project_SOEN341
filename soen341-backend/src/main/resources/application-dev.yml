@@ -1,0 +1,48 @@
+#spring.application.name=backend
+#spring.jpa.hibernate.ddl-auto=update
+#spring.datasource.url=jdbc:mysql://localhost:3306/mydatabase
+#spring.datasource.username=myuser
+#spring.datasource.password=secret
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#spring.jpa.show-sql: true
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mydatabase
+    username: myuser
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #idk if this is alr...
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enable: true
+        connectiontimeout: 5000
+        timeout: 300
+        writetimeout: 5000
+
+application:
+  security:
+    jwt:
+      secret:
+        secret-key: 4acb6151b37dbcc9c64496b132b721d125ee72cd312a3052069de72b7fc6b4d9
+        expiration: 86400000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+server:
+  port: 8088
