@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9711c6d5-93d8-49af-8e01-04ef1a92a073" name="Changes" comment="" />
+    <list default="true" id="9711c6d5-93d8-49af-8e01-04ef1a92a073" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soen341-frontend/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../soen341-frontend/src/app/home/home.component.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +22,35 @@
     &quot;assignee&quot;: &quot;NDC0DE&quot;
   }
 }</component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1740449810" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="US-login-UI-#19" />
+                    <option name="lastUsedInstant" value="1740447872" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="US-Implement-logic-related-to-creating-an-account-with-login-credentials-#19" />
+                    <option name="lastUsedInstant" value="1740447871" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$/.." />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ProjectSOEN341/Project_SOEN341.git&quot;,
@@ -42,6 +74,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.BackendApplication.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
