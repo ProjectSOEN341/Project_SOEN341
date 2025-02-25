@@ -20,7 +20,7 @@
             </ul>
     </div>
     <div class="messages">
-        <h3>{{ selectedChannel?.name || 'Select a chat' }}</h3>
+        <h3>{{ selectedChannel.name || 'Select a chat' }}</h3>
         <hr class="custom-line">
         <div class="messages">
             <div *ngFor="let message of selectedChannel?.messages">
