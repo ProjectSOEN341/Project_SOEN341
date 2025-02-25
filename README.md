@@ -3,6 +3,18 @@
   <a aria-label="Github" href="#">
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
   </a>
+  <a aria-label="Docker" href="#">
+    <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff">
+  </a>
+  <a aria-label="SpringBoot" href="#">
+    <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=springboot&logoColor=fff">
+  </a>
+<a aria-label="Angular" href="#">
+    <img src="https://img.shields.io/badge/Angular-%23DD0031.svg?logo=angular&logoColor=white">
+  </a>
+<a aria-label="MySQL" href="#">
+    <img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff">
+  </a>
 </p>
 
 ## Description
@@ -10,7 +22,7 @@
 Whether you’re collaborating with a team, connecting with a community, or chatting privately with friends, the platform offers an intuitive and organized space to stay connected. Users can create topic-specific channels, share media, and engage in one-on-one conversations, all while enjoying customizable features that enhance the experience. With a clean interface and robust privacy options, the platform is the perfect hub for meaningful and efficient communication.
 
 ## Objective
-The objective of this project is to succesfully implement all the core feautres the client requires while also providing a comfortable and interesting website for users to enjoy.
+The objective of this project is to succesfully implement all the core features the client requires while also providing a comfortable and interesting website for users to enjoy.
 
 ## Core Features
 Text Channels for Group Communication
@@ -41,7 +53,7 @@ Special Feature
 Frontend 
 * Angular
 
-Api
+API
 * SpringBoot
 
 Database
