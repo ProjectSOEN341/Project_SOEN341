@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
 export class HomeComponent {
   view: 'channels' | 'dms' = 'channels';
   channels = [
