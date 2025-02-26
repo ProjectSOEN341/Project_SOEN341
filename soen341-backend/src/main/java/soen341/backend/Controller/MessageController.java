@@ -30,7 +30,7 @@ public class MessageController {
     public MessageDTO greeting(@DestinationVariable String name, MessageDTO messageDTO) throws Exception {
         System.out.println(messageDTO);
         System.out.println();
-        Conversation savedConversation =null;
+        Conversation savedConversation = null;
         if(!conversationService.doesConversationExist(messageDTO.sender, messageDTO.receiver)) {
             Conversation conversation = new Conversation();
             conversation.setUser1(messageDTO.sender);
