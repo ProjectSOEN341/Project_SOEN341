@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { Client } from '@stomp/stompjs';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,17 @@ import { MatButtonModule } from '@angular/material/button';
 })
 
 export class HomeComponent {
+  private client: Client;
+   constructor() {
+      this.client = new Client({
+        brokerURL: 'ws://localhost:8088/api/v1/dm/gs-guide-websocket', 
+      });
+      this.client.onConnect = (frame) => {
+        console.log('Connected: ' + frame);
+        // this.subcribe();
+      };
+    }
+
   view: 'channels' | 'dms' = 'channels';
   channels = [
     { name: 'General', messages: [{ user: 'Thomas', text: 'Hello!' }] },
@@ -24,7 +36,11 @@ export class HomeComponent {
   selectedChannel = this.channels[0];
   newMessage = '';
 
-
+  // subcribe() {
+  //   this.client.subscribe(`/dm/topic/greetings/${this.usernameReceive}`, (m) => {
+  //     this.showGreeting(JSON.parse(m.body).body);
+  //   });
+  // }
   selectChannel(channel: any) {
     this.selectedChannel = channel;
   }
