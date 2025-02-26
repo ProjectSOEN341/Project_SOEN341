@@ -18,6 +18,11 @@
                 {{ dm.name }}
             </button>
             </ul>
+            <input type="text" id="myInput" placeholder="Enter text here">
+            <button onclick="createConversation()">Create</button>
+            @for(conversation of conversations;track conversation){
+              <div>{{conversation}}</div>
+            }
     </div>
     <div class="messages">
         <h3>{{ selectedChannel.name || 'Select a chat' }}</h3>

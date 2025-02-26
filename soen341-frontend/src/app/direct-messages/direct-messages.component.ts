@@ -77,6 +77,7 @@ export class DirectMessagesComponent {
 
   showGreeting(message: string) {
     this.messages.push(message);
+    
   }
 
   subcribe() {
