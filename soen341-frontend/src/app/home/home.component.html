@@ -18,8 +18,8 @@
                 {{ dm.name }}
             </button>
             </ul>
-            <input type="text" id="myInput" placeholder="Enter text here">
-            <button onclick="createConversation()">Create</button>
+            <input type="text" id="myInput" placeholder="Enter text here" [(ngModel)]="newConversationReceiver">
+            <button (click)="createConversation()" >Create</button>
             @for(conversation of conversations;track conversation){
               <div>{{conversation}}</div>
             }

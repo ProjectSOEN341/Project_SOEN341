@@ -17,6 +17,7 @@ import { Conversation } from '../../interfaces/conversation';
 
 export class HomeComponent {
   private client: Client;
+  url='http://localhost:8088/api/v1'
   messages: string[] = [];
   singleMessage: string = '';
   message!: Message;
@@ -79,11 +80,17 @@ export class HomeComponent {
     this.selectedChannel = channel;
   }
   createConversation():void{
-    this.http.post<Conversation>('https://localhost:8088/direct-message/dm/createConversation',{
-      user1:this.userService.loginUser.email,
-      user2:this.newConversationReceiver,
-    });
-
+    const newConversation:Conversation = {
+      id: 1,
+      user1: this.userService.loginUser.email,
+      user2: this.newConversationReceiver,
+      role:"",
+      messages:[]
+    };
+    
+    
+      this.http.post('http://localhost:8088/api/v1/direct-message/dm/createConversation', newConversation, {
+      })
 
   }
 
