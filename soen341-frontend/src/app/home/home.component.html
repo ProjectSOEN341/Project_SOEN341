@@ -21,22 +21,46 @@
             <input type="text" id="myInput" placeholder="Enter text here" [(ngModel)]="newConversationReceiver">
             <button (click)="createConversation()" >Create</button>
             @for(conversation of conversations;track conversation){
-              <div>{{conversation}}</div>
+              @if(conversation.user1==this.userService.loginUser.email){
+                <div (click)="selectConversation(conversation)">{{conversation.user2}}</div>
+
+              }
+              @else{
+                <div (click)="selectConversation(conversation)">{{conversation.user1}}</div>
+              }
+              
             }
     </div>
     <div class="messages">
-        <h3>{{ selectedChannel.name || 'Select a chat' }}</h3>
+      @if(selectedConversation==undefined){
+        <h3>{{ "Selected a conversation" }}</h3>
+      }
+      @else if(selectedConversation.user1==this.userService.loginUser.email){
+        <h3>{{ selectedConversation.user2 }}</h3>
+
+      }
+      @else{
+        <h3>{{ selectedConversation.user1}}</h3>
+      }
+       
         <hr class="custom-line">
         <div class="messages">
-            <div *ngFor="let message of selectedChannel?.messages">
-              <strong>{{ message.user }}:</strong> {{ message.text }}
-            </div>
+          @if(selectedConversation!=undefined){
+            @for(message of selectedConversation.messages;track message){
+              <div>
+                <strong>{{ message.sender }}:</strong> {{ message.body }}
+                
+              </div>
+            }
+          }
+         
+            
   
             
           </div>
           <div class="message-input">
-            <input type="text" placeholder="Type a message..." />
-            <button>
+            <input [(ngModel)]="singleMessage" type="text" placeholder="Type a message..." />
+            <button (click)="sendName()">
               <span class="arrow">➤</span>
             </button>
           </div>
