@@ -22,7 +22,7 @@ export class DirectMessagesComponent {
 
   constructor() {
     this.client = new Client({
-      brokerURL: 'ws://localhost:8080/gs-guide-websocket',
+      brokerURL: 'ws://localhost:8088/api/v1/dm/gs-guide-websocket', 
     });
     this.client.onConnect = (frame) => {
       console.log('Connected: ' + frame);
