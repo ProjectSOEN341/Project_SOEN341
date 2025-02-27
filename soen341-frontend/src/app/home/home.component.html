@@ -13,23 +13,30 @@
             </button>
           </ul>
           <h3 *ngIf="view === 'dms'">Direct Messages</h3>
-            <ul *ngIf="view === 'dms'">
-            <button mat-raised-button color="primary" *ngFor="let dm of dms" (click)="selectChannel(dm)">
-                {{ dm.name }}
+          @if(view=='dms'){
+            <div class="message-input" >
+              <input type="text" id="myInput" placeholder="Enter text here" [(ngModel)]="newConversationReceiver">
+            <button (click)="createConversation()" >
+              <span class="arrow">➤</span>
             </button>
+            </div>
+            
+          }
+          
+            <ul *ngIf="view === 'dms'">
+              @for(conversation of conversations;track conversation){
+                @if(conversation.user1==this.userService.loginUser.email){
+                  <button mat-raised-button color="primary" (click)="selectConversation(conversation)">{{conversation.user2}}</button>
+  
+                }
+                @else{
+                  <button mat-raised-button color="primary" (click)="selectConversation(conversation)">{{conversation.user1}}</button>
+                }
+                
+              }
             </ul>
-            <input type="text" id="myInput" placeholder="Enter text here" [(ngModel)]="newConversationReceiver">
-            <button (click)="createConversation()" >Create</button>
-            @for(conversation of conversations;track conversation){
-              @if(conversation.user1==this.userService.loginUser.email){
-                <div (click)="selectConversation(conversation)">{{conversation.user2}}</div>
-
-              }
-              @else{
-                <div (click)="selectConversation(conversation)">{{conversation.user1}}</div>
-              }
-              
-            }
+            
+           
     </div>
     <div class="messages">
       @if(selectedConversation==undefined){
@@ -47,10 +54,21 @@
         <div class="messages">
           @if(selectedConversation!=undefined){
             @for(message of selectedConversation.messages;track message){
-              <div>
-                <strong>{{ message.sender }}:</strong> {{ message.body }}
-                
-              </div>
+              @if(message.sender==this.userService.loginUser.email){
+                <div class="message-right">
+                   {{ message.body }}
+                  
+                </div>
+                <br>
+              }
+              @else{
+                <div>
+                  <strong>{{ message.sender }}:</strong> {{ message.body }}
+                  
+                </div>
+                <br>
+              }
+             
             }
           }
          

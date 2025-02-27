@@ -57,6 +57,9 @@ export class HomeComponent {
     this.client.subscribe(`/topic/greetings/${this.userService.loginUser.email}`, (m) => {
       this.showGreeting(JSON.parse(m.body));
     });
+    this.client.subscribe(`/topic/dm/${this.userService.loginUser.email}`, (m) => {
+      this.showConversation(JSON.parse(m.body));
+    });
   }
   sendName() {
     
@@ -68,6 +71,7 @@ export class HomeComponent {
         body: this.singleMessage,
         timestamp: new Date().toLocaleString(),
       }
+      
       this.client.publish({
         destination: `/app/hello/${receiver}`,
         body: JSON.stringify(this.message),
@@ -75,6 +79,9 @@ export class HomeComponent {
       this.selectedConversation.messages.push(this.message);
     
   }
+  showConversation(convo:Conversation){
+    this.conversations.push(convo);
+    }
   showGreeting(message: Message) {
     const otherPerson=this.selectedConversation.user1==this.userService.loginUser.email?this.selectedConversation.user2:this.selectedConversation.user1;
     if(message.sender==otherPerson){
@@ -105,6 +112,10 @@ export class HomeComponent {
       role:"",
       messages:[]
     };
+    this.client.publish({
+      destination: `/app/dm/${this.newConversationReceiver}`,
+      body: JSON.stringify(newConversation),
+    });
     
     
     this.http.post('http://localhost:8088/api/v1/direct-message/dm/createConversation', newConversation, {
