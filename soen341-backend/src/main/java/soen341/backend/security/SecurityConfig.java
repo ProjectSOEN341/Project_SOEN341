@@ -39,7 +39,9 @@ public class SecurityConfig {
                                 "/webjars/**",
                                 "/swagger-ui.html",
                                 "/dm/**",
-                                "direct-message/**"
+                                "/direct-message/**",
+                        "/channel/**",
+                        "/participant/**"
                 ).permitAll()
                         .anyRequest()
                         .authenticated())

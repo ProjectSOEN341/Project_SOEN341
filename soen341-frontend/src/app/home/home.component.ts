@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { Message } from '../../interfaces/message';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Conversation } from '../../interfaces/conversation';
+import { Channel } from '../../interfaces/channel';
+import { ChannelMessage } from '../../interfaces/channelMessage';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +25,7 @@ export class HomeComponent {
   message!: Message;
   newConversationReceiver='';
   selectedConversation!:Conversation;
+
    constructor(
     public userService:UserService,
     private http: HttpClient
@@ -36,21 +39,18 @@ export class HomeComponent {
       };
       this.client.activate();
       this.http.get<Conversation[]>('http://localhost:8088/api/v1/direct-message/'+this.userService.loginUser.email).subscribe((conversations)=>this.conversations=conversations);
+      this.http.get<Channel[]>('http://localhost:8088/api/v1/channel/retrieveAllChannel').subscribe((channels)=>this.channels=channels);
     }
 
   view: 'channels' | 'dms' = 'channels';
-  channels = [
-    { name: 'General', messages: [{ user: 'Thomas', text: 'Hello!' }] },
-    { name: 'Project Help', messages: [{ user: 'Andy', text: 'I need help with the frontend!' }] },
-    { name: 'Social', messages: [{ user: 'Robert', text: 'Hello!' }] },
-  ];
+  channels: Channel[] = [];
   dms = [
     { name: 'Thomas', messages: [{ user: 'Thomas', text: 'Hey, how are you?' }] },
     { name: 'Robert', messages: [{ user: 'Robert', text: "What's up?" }] },
   ];
   conversations:Conversation[]=[];
 
-  selectedChannel = this.channels[0];
+  selectedChannel!: Channel;
   newMessage = '';
 
   subcribe() {
@@ -60,10 +60,52 @@ export class HomeComponent {
     this.client.subscribe(`/topic/dm/${this.userService.loginUser.email}`, (m) => {
       this.showConversation(JSON.parse(m.body));
     });
+    this.client.subscribe('/topic/channel', (m)=>{
+      this.showChannelMessage(JSON.parse(m.body));
+    });
+
+    this.client.subscribe('/topic/channel/newChannels', (m)=>{
+      this.showChannel(JSON.parse(m.body));
+    });
   }
-  sendName() {
+
+  showChannel(channel: Channel){
+    channel.channelMessages = [];
+    console.log(channel);
+    this.channels.push(channel);
+  }
+
+  showChannelMessage(channelMessage: ChannelMessage){
+    console.log(channelMessage);
+    console.log("jejajjajajaj");
+    if (channelMessage.channelId == this.selectedChannel.id) {
+      this.selectedChannel.channelMessages.push(channelMessage);
+    } else {
+      this.channels.forEach((channel)=>{
+        if(channel.id == channelMessage.channelId) {
+          channel.channelMessages.push(channelMessage);
+        }
+      })
+    }
     
-    console.log('trying to send: ' + this.singleMessage);
+  }
+
+  createChannel():void{
+    const newChannel = {
+      name: this.newConversationReceiver
+    }
+
+    this.client.publish({
+      destination: `/app/channel/createInApp`,
+      body: JSON.stringify(
+        newChannel
+      ),
+    });
+  }
+
+  sendName() {
+    if (this.view == "dms") {
+      console.log('trying to send: ' + this.singleMessage);
       const receiver=this.selectedConversation.user1==this.userService.loginUser.email?this.selectedConversation.user2:this.selectedConversation.user1;
       this.message = {
         sender: this.userService.loginUser.email,
@@ -77,6 +119,20 @@ export class HomeComponent {
         body: JSON.stringify(this.message),
       });
       this.selectedConversation.messages.push(this.message);
+    } else {
+      console.log('trying to send: ' + this.singleMessage);
+
+      this.client.publish({
+        destination: `/app/channel/sendMessage`,
+        body: JSON.stringify({
+          sender: this.userService.loginUser.email,
+          body: this.singleMessage,
+          timestamp: new Date().toLocaleString(),
+          channelId: this.selectedChannel.id
+        }),
+      });
+    }
+    
     
   }
   showConversation(convo:Conversation){
@@ -99,10 +155,12 @@ export class HomeComponent {
     }
     
     
-  
-  selectChannel(channel: any) {
+  hasJoinedChannel: Boolean = false;
+
+  selectChannel(channel: Channel) {
     this.selectedChannel = channel;
-    
+    this.http.get<Boolean>('http://localhost:8088/api/v1/participant/hasJoined/' + this.selectedChannel.id + "/" + this.userService.loginUser.email).subscribe((joined)=>this.hasJoinedChannel = joined);
+    console.log(this.hasJoinedChannel);
   }
   createConversation():void{
     const newConversation:Conversation = {
@@ -138,11 +196,14 @@ export class HomeComponent {
     
   }
 
-  sendMessage() {
-    if (this.newMessage.trim()) {
-      this.selectedChannel.messages.push({ user: 'You', text: this.newMessage });
-      this.newMessage = '';
-    }
+  
+  joinChannel():void {
+    this.http.post('http://localhost:8088/api/v1/participant/addParticipantToChannel/' + this.selectedChannel.id + "/" + this.userService.loginUser.email, null).subscribe(response => {
+      console.log('Conversation created successfully', response);
+    }, error => {
+      console.error('Error creating conversation', error);
+    });;
+    this.hasJoinedChannel = true;
   }
-
+  
 }
