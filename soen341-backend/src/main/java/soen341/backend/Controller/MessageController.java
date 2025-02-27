@@ -6,6 +6,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import soen341.backend.DTO.ConversationDTO;
 import soen341.backend.DTO.MessageDTO;
 import soen341.backend.Entity.Conversation;
 import soen341.backend.Entity.Message;
@@ -24,13 +25,18 @@ public class MessageController {
     @Autowired
     private ConversationRepository conversationRepository;
 
+    @MessageMapping("/dm/{name}")
+    @SendTo("/topic/dm/{name}")
+    public ConversationDTO transferConversation(@DestinationVariable String name, ConversationDTO conversation)throws Exception{
+        return conversation;
+    }
 
     @MessageMapping("/hello/{name}")
     @SendTo("/topic/greetings/{name}")
     public MessageDTO greeting(@DestinationVariable String name, MessageDTO messageDTO) throws Exception {
         System.out.println(messageDTO);
         System.out.println();
-        Conversation savedConversation =null;
+        Conversation savedConversation = null;
         if(!conversationService.doesConversationExist(messageDTO.sender, messageDTO.receiver)) {
             Conversation conversation = new Conversation();
             conversation.setUser1(messageDTO.sender);

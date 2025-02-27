@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/services/authentication.service';
 import {TokenService} from '../../services/token/token.service';
+import { UserService } from '../../services/userService.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private authService: AuthenticationService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private userService:UserService
   ) {
   }
 
@@ -33,6 +35,8 @@ export class LoginComponent {
       next: (res) => {
         this.tokenService.token = res.token as string;
         this.router.navigate(['home']);
+        this.userService.setLoginUser(this.authRequest);
+        
       },
       error: (err) => {
         console.log(err);

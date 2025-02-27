@@ -13,25 +13,72 @@
             </button>
           </ul>
           <h3 *ngIf="view === 'dms'">Direct Messages</h3>
-            <ul *ngIf="view === 'dms'">
-            <button mat-raised-button color="primary" *ngFor="let dm of dms" (click)="selectChannel(dm)">
-                {{ dm.name }}
+          @if(view=='dms'){
+            <div class="message-input" >
+              <input type="text" id="myInput" placeholder="Enter text here" [(ngModel)]="newConversationReceiver">
+            <button (click)="createConversation()" >
+              <span class="arrow">➤</span>
             </button>
+            </div>
+            
+          }
+          
+            <ul *ngIf="view === 'dms'">
+              @for(conversation of conversations;track conversation){
+                @if(conversation.user1==this.userService.loginUser.email){
+                  <button mat-raised-button color="primary" (click)="selectConversation(conversation)">{{conversation.user2}}</button>
+  
+                }
+                @else{
+                  <button mat-raised-button color="primary" (click)="selectConversation(conversation)">{{conversation.user1}}</button>
+                }
+                
+              }
             </ul>
+            
+           
     </div>
     <div class="messages">
-        <h3>{{ selectedChannel.name || 'Select a chat' }}</h3>
+      @if(selectedConversation==undefined){
+        <h3>{{ "Selected a conversation" }}</h3>
+      }
+      @else if(selectedConversation.user1==this.userService.loginUser.email){
+        <h3>{{ selectedConversation.user2 }}</h3>
+
+      }
+      @else{
+        <h3>{{ selectedConversation.user1}}</h3>
+      }
+       
         <hr class="custom-line">
         <div class="messages">
-            <div *ngFor="let message of selectedChannel?.messages">
-              <strong>{{ message.user }}:</strong> {{ message.text }}
-            </div>
+          @if(selectedConversation!=undefined){
+            @for(message of selectedConversation.messages;track message){
+              @if(message.sender==this.userService.loginUser.email){
+                <div class="message-right">
+                   {{ message.body }}
+                  
+                </div>
+                <br>
+              }
+              @else{
+                <div>
+                  <strong>{{ message.sender }}:</strong> {{ message.body }}
+                  
+                </div>
+                <br>
+              }
+             
+            }
+          }
+         
+            
   
             
           </div>
           <div class="message-input">
-            <input type="text" placeholder="Type a message..." />
-            <button>
+            <input [(ngModel)]="singleMessage" type="text" placeholder="Type a message..." />
+            <button (click)="sendName()">
               <span class="arrow">➤</span>
             </button>
           </div>

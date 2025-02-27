@@ -98,5 +98,11 @@
     margin: 20px 0;
   }
   
+  .message-right{
+    text-align: right;
+  }
+  .input-new-conversation{
+    display: flex;
+  }
   
   

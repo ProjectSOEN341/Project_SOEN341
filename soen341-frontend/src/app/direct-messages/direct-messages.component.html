@@ -116,8 +116,9 @@
         </div>
       </div>
     </div>
+    @for(message of messages;track messages){
+      <li class="message">{{ message }}</li>
+      
+      }   
   </body>
 </html>
-@for(message of messages;track messages){
-<li class="message">{{ message }}</li>
-}
