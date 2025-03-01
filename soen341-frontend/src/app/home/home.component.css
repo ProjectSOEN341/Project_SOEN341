@@ -104,5 +104,79 @@
   .input-new-conversation{
     display: flex;
   }
+  .message-bubble {
+    background-color: #f1f1f1; 
+    padding: 10px 15px; 
+    border-radius: 20px; 
+    max-width: 80%; 
+    margin: 10px 0; 
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    display: inline-block;
+  }
   
+  .message-bubble {
+    color: #2c3e50; 
+  }
+  
+  .message-bubble {
+    align-self: flex-start; 
+  }
+  .sent {
+    
+    align-self: flex-end; 
+    text-align: right;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100vh; 
+    
+  }
+  .but{
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .admin-button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .admin-button {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease;
+    margin: 10px 0; /* Adds space between buttons */
+  }
+  
+  .admin-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+  }
+  
+  .admin-button:active {
+    transform: translateY(2px);
+  }
+  
+  .admin-button:focus {
+    outline: none;
+    border: 2px solid #0056b3;
+  }
   

@@ -45,17 +45,20 @@
     </div>
 
     } @else {
-    <div class="message-input">
-      <input
-        type="text"
-        id="myInput"
-        placeholder="Enter text here"
-        [(ngModel)]="newConversationReceiver"
-      />
-      <button (click)="createChannel()">
-        <span class="arrow">➤</span>
-      </button>
-    </div>
+      @if(this.userService.user.role=="admin"){
+        <div class="message-input">
+          <input
+            type="text"
+            id="myInput"
+            placeholder="Enter text here"
+            [(ngModel)]="newConversationReceiver"
+          />
+          <button (click)="createChannel()">
+            <span class="arrow">➤</span>
+          </button>
+        </div>
+      }
+   
     }
 
     <ul *ngIf="view === 'dms'">
@@ -79,8 +82,14 @@
       </button>
       } }
     </ul>
+    <div class="admin-button-container">
+      <button class="admin-button" (click)="makeAdmin()">Become an Admin</button>
+      <button class="admin-button" (click)="makeMember()">Become a Member</button>
+    </div>
+    
+    
   </div>
-
+  
   <div class="messages">
     @if(view == "dms") { @if(selectedConversation==undefined){
     <h3>{{ "Selected a conversation" }}</h3>
@@ -90,18 +99,18 @@
     } @else{
     <h3>{{ selectedConversation.user1 }}</h3>
     }
-
+      
     <hr class="custom-line" />
     <div class="messages">
       @if(selectedConversation!=undefined){ @for(message of
       selectedConversation.messages;track message){
       @if(message.sender==this.userService.loginUser.email){
-      <div class="message-right">
+      <div class="message-right message-bubble sent">
         {{ message.body }}
       </div>
       <br />
       } @else{
-      <div>
+      <div class="message-right message-bubble">
         <strong>{{ message.sender }}:</strong> {{ message.body }}
       </div>
       <br />
@@ -111,28 +120,39 @@
     <h3>{{ selectedChannel.name }}</h3>
     <div class="messages">
       @for (message of selectedChannel.channelMessages; track message) {
-      <div>{{ message.sender }}:{{ message.body }}</div>
+        @if(message.sender==this.userService.loginUser.email){
+          <div class="message-bubble sent">
+            <strong>{{ message.sender }}:</strong> {{ message.body }}
+          </div>
+        }
+        @else{<div class="message-bubble">
+          <strong>{{ message.sender }}:</strong> {{ message.body }}
+        </div>}
+        
       }
     </div>
     } @else if (selectedChannel){
     <h3>{{ selectedChannel.name }}</h3>
-    <div class="messages">
-      <button (click)="joinChannel()">Join channel</button>
+    <div class=" button-container">
+      <button class="but" (click)="joinChannel()">Join channel</button>
     </div>
     } @else {
     <h3>Select a channel</h3>
     <div class="messages"></div>
     }}
 
-    <div class="message-input">
-      <input
-        [(ngModel)]="singleMessage"
-        type="text"
-        placeholder="Type a message..."
-      />
-      <button (click)="sendName()">
-        <span class="arrow">➤</span>
-      </button>
-    </div>
+    @if(view=='dms'||hasJoinedChannel){
+      <div class="message-input">
+        <input
+          [(ngModel)]="singleMessage"
+          type="text"
+          placeholder="Type a message..."
+        />
+        <button (click)="sendName()">
+          <span class="arrow">➤</span>
+        </button>
+      </div>
+    }
+    
   </div>
 </div>

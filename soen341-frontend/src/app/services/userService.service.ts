@@ -7,7 +7,7 @@ import { User } from "../../interfaces/user";
   providedIn: 'root'})
 export class UserService{
     loginUser:LoginUser={email: '', password:''};
-    user:User={email: '', firstname: '', lastname: '', password: ''};
+    user:User={email: '',role:''};
 
     
 

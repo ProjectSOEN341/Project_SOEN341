@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Conversation } from '../../interfaces/conversation';
 import { Channel } from '../../interfaces/channel';
 import { ChannelMessage } from '../../interfaces/channelMessage';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +41,9 @@ export class HomeComponent {
       this.client.activate();
       this.http.get<Conversation[]>('http://localhost:8088/api/v1/direct-message/'+this.userService.loginUser.email).subscribe((conversations)=>this.conversations=conversations);
       this.http.get<Channel[]>('http://localhost:8088/api/v1/channel/retrieveAllChannel').subscribe((channels)=>this.channels=channels);
+      this.http.get<User>('http://localhost:8088/api/v1/user/'+this.userService.loginUser.email).subscribe((user)=>{this.userService.setUser(user);
+        
+      });
     }
 
   view: 'channels' | 'dms' = 'channels';
@@ -204,6 +208,30 @@ export class HomeComponent {
       console.error('Error creating conversation', error);
     });;
     this.hasJoinedChannel = true;
+  }
+  makeAdmin(){
+    this.userService.user.role="admin";
+    this.http.put('http://localhost:8088/api/v1/user/'+this.userService.user.email+"/admin", {
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .subscribe(response => {
+      console.log('Role updated', response);
+    }, error => {
+      console.error('Error creating conversation', error);
+    });
+
+  }
+  makeMember(){
+    this.userService.user.role="member";
+    this.http.put('http://localhost:8088/api/v1/user/'+this.userService.user.email+"/member", {
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .subscribe(response => {
+      console.log('Role updated', response);
+    }, error => {
+      console.error('Error creating conversation', error);
+    });
+
   }
   
 }
