@@ -41,7 +41,8 @@ public class SecurityConfig {
                                 "/dm/**",
                                 "/direct-message/**",
                         "/channel/**",
-                        "/participant/**"
+                        "/participant/**",
+                        "/user/**"
                 ).permitAll()
                         .anyRequest()
                         .authenticated())
