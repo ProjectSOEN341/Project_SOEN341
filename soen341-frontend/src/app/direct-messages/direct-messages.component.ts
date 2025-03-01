@@ -67,6 +67,7 @@ export class DirectMessagesComponent {
         receiver: this.usernameSend,
         body: this.singleMessage,
         timestamp: new Date().toLocaleString(),
+        id:0
       }
       this.client.publish({
         destination: `/app/hello/${this.usernameSend}`,

@@ -74,6 +74,23 @@ export class HomeComponent {
     this.client.subscribe('/topic/channel/deleteChannels', (m)=>{
       this.deletedChannel(JSON.parse(m.body));
     });
+    this.client.subscribe('/topic/message/deleteMessage', (m)=>{
+      this.deletedMessage(JSON.parse(m.body));
+    });
+  }
+  deletedMessage(deletedMessage:Message){
+    // Remove the deleted message from the selected channel's messages
+this.selectedChannel.channelMessages = this.selectedChannel.channelMessages.filter(
+  (channelMessage) => channelMessage.id !== deletedMessage.id
+);
+
+// Loop through all channels and remove the deleted message from each channel's messages
+this.channels.forEach((channel) => {
+  channel.channelMessages = channel.channelMessages.filter(
+    (channelMessage) => channelMessage.id !== deletedMessage.id
+  );
+});
+
   }
   deletedChannel(deletedChannel:Channel){
     this.channels=this.channels.filter(channel=>channel.id!==deletedChannel.id);
@@ -85,9 +102,27 @@ export class HomeComponent {
     this.channels.push(channel);
   }
 
+  deleteMessage(m:ChannelMessage){
+    console.log(m.id);
+    this.selectedChannel.channelMessages=this.selectedChannel.channelMessages.filter(message=>message.id!==m.id);
+    this.http.delete('http://localhost:8088/api/v1/direct-message/'+m.id)
+      .subscribe(
+      );
+    this.client.publish({
+      destination: `/app/message/deleteInApp`,
+      body: JSON.stringify(
+        m
+      ),
+    });
+    
+   
+    
+
+  }
   showChannelMessage(channelMessage: ChannelMessage){
     console.log(channelMessage);
     console.log("jejajjajajaj");
+    console.log(channelMessage.id);
     if (channelMessage.channelId == this.selectedChannel.id) {
       this.selectedChannel.channelMessages.push(channelMessage);
     } else {
@@ -122,6 +157,7 @@ export class HomeComponent {
         receiver: receiver,
         body: this.singleMessage,
         timestamp: new Date().toLocaleString(),
+        id:0
       }
       
       this.client.publish({
@@ -141,6 +177,7 @@ export class HomeComponent {
           channelId: this.selectedChannel.id
         }),
       });
+      
     }
     
     

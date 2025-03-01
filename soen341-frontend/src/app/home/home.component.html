@@ -115,11 +115,13 @@
       @if(message.sender==this.userService.loginUser.email){
       <div class="message-right message-bubble sent">
         {{ message.body }}
+        
       </div>
       <br />
       } @else{
       <div class="message-right message-bubble">
         <strong>{{ message.sender }}:</strong> {{ message.body }}
+        
       </div>
       <br />
       } } }
@@ -131,10 +133,16 @@
         @if(message.sender==this.userService.loginUser.email){
           <div class="message-bubble sent">
             <strong>{{ message.sender }}:</strong> {{ message.body }}
+            @if(this.userService.user.role=="admin"){
+              <span class="delete-x" (click)="deleteMessage(message)" >X</span>
+            }
           </div>
         }
         @else{<div class="message-bubble">
           <strong>{{ message.sender }}:</strong> {{ message.body }}
+          @if(this.userService.user.role=="admin"){
+            <span class="delete-x" (click)="deleteMessage(message)"  >X</span>
+          }
         </div>}
         
       }
