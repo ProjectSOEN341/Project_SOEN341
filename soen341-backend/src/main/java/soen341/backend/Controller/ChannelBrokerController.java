@@ -31,4 +31,11 @@ public class ChannelBrokerController {
         return channelDTO;
     }
 
+    @MessageMapping("/channel/deleteInApp")
+    @SendTo("/topic/channel/deleteChannels")
+    public ChannelDTO deleteConversation(ChannelDTO channelDTO)throws Exception{
+
+        return channelDTO;
+    }
+
 }
