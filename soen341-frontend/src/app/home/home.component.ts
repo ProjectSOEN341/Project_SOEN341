@@ -71,8 +71,14 @@ export class HomeComponent {
     this.client.subscribe('/topic/channel/newChannels', (m)=>{
       this.showChannel(JSON.parse(m.body));
     });
+    this.client.subscribe('/topic/channel/deleteChannels', (m)=>{
+      this.deletedChannel(JSON.parse(m.body));
+    });
   }
-
+  deletedChannel(deletedChannel:Channel){
+    this.channels=this.channels.filter(channel=>channel.id!==deletedChannel.id);
+    this.selectedChannel={id:0,name:"",channelMessages:[]};
+  }
   showChannel(channel: Channel){
     channel.channelMessages = [];
     console.log(channel);
@@ -163,6 +169,7 @@ export class HomeComponent {
 
   selectChannel(channel: Channel) {
     this.selectedChannel = channel;
+    console.log(channel);
     this.http.get<Boolean>('http://localhost:8088/api/v1/participant/hasJoined/' + this.selectedChannel.id + "/" + this.userService.loginUser.email).subscribe((joined)=>this.hasJoinedChannel = joined);
     console.log(this.hasJoinedChannel);
   }
@@ -232,6 +239,21 @@ export class HomeComponent {
       console.error('Error creating conversation', error);
     });
 
+  }
+  deleteChannel(deletedChannel:Channel){
+    this.http.delete('http://localhost:8088/api/v1/channel/'+deletedChannel.id)
+    .subscribe(response => {
+      console.log('Role updated', response);
+    }, error => {
+      console.error('Error creating conversation', error);
+    });
+    this.channels=this.channels.filter(channel=>channel.id!==deletedChannel.id);
+    this.client.publish({
+      destination: `/app/channel/deleteInApp`,
+      body: JSON.stringify(
+        deletedChannel
+      ),
+    });
   }
   
 }

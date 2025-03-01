@@ -24,10 +24,15 @@
       <button
         mat-raised-button
         color="primary"
+        class="conversation-button"
         *ngFor="let channel of channels"
         (click)="selectChannel(channel)"
       >
         {{ channel.name }}
+        @if(this.userService.user.role=="admin"){
+          <span class="delete-x" (click)="deleteChannel(channel)" >X</span>
+        }
+        
       </button>
     </ul>
     <h3 *ngIf="view === 'dms'">Direct Messages</h3>
@@ -65,6 +70,7 @@
       @for(conversation of conversations;track conversation){
       @if(conversation.user1==this.userService.loginUser.email){
       <button
+      
         mat-raised-button
         color="primary"
         (click)="selectConversation(conversation)"
@@ -76,9 +82,11 @@
       <button
         mat-raised-button
         color="primary"
+        
         (click)="selectConversation(conversation)"
       >
         {{ conversation.user1 }}
+        
       </button>
       } }
     </ul>
