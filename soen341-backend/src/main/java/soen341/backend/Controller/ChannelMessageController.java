@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import soen341.backend.DTO.ChannelMessageDTO;
+import soen341.backend.DTO.MessageDTO;
 import soen341.backend.Entity.Channel;
 import soen341.backend.Entity.ChannelMessage;
 import soen341.backend.Repository.ChannelMessageRepository;
@@ -32,7 +35,19 @@ public class ChannelMessageController {
 
         System.out.println(channelMessageDTO.getChannelId());
 
-        channelMessageRepository.save(channelMessage);
+        ChannelMessage c=channelMessageRepository.save(channelMessage);
+        channelMessageDTO.setId(channelMessage.getId());
         return channelMessageDTO;
+    }
+    @MessageMapping("/message/deleteInApp")
+    @SendTo("/topic/message/deleteMessage")
+    public ChannelMessageDTO deleteMessage(ChannelMessageDTO channelMessageDTO)throws Exception{
+
+        return channelMessageDTO;
+    }
+
+    @DeleteMapping("/direct-message/{id}")
+    public void deleteMessage(@PathVariable int id){
+        channelMessageRepository.deleteById(id);
     }
 }

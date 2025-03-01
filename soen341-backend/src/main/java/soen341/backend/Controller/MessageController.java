@@ -1,11 +1,15 @@
 package soen341.backend.Controller;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import soen341.backend.DTO.ChannelDTO;
 import soen341.backend.DTO.ConversationDTO;
 import soen341.backend.DTO.MessageDTO;
 import soen341.backend.Entity.Conversation;
@@ -59,4 +63,7 @@ public class MessageController {
         messageRepository.save(message);
         return messageDTO;
     }
+
+
+
 }
