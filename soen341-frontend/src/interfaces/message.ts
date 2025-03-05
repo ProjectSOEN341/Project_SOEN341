@@ -3,4 +3,5 @@ export interface Message {
     receiver: string;
     body: string;
     timestamp: string;
+    id:number;
   }

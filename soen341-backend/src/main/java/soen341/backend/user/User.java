@@ -39,6 +39,7 @@ public class User implements UserDetails, Principal {
     private String password;
     private Boolean accountLocked;
     private Boolean enabled;
+    private String role;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;

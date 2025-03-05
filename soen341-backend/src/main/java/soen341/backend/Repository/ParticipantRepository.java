@@ -7,4 +7,6 @@ import soen341.backend.Entity.Participant;
 @Repository
 public interface ParticipantRepository extends CrudRepository<Participant, Integer> {
     boolean existsByUserAndChannelId(String user, Integer channelId);
+    void deleteByChannelId(Integer channelId);
+
 }
