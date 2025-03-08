@@ -136,19 +136,26 @@ this.channels.forEach((channel) => {
   }
 
   createChannel():void{
-    const newChannel = {
-      name: this.newConversationReceiver
-    }
+    if(this.newConversationReceiver.trim()){
+      const newChannel = {
+        name: this.newConversationReceiver
+      }
+  
+      this.client.publish({
+        destination: `/app/channel/createInApp`,
+        body: JSON.stringify(
+          newChannel
+        ),
+      });
 
-    this.client.publish({
-      destination: `/app/channel/createInApp`,
-      body: JSON.stringify(
-        newChannel
-      ),
-    });
+      this.newConversationReceiver = ''; //clears the input field
+      
+    }
+   
   }
 
   sendName() {
+    if (this.singleMessage.trim()){
     if (this.view == "dms") {
       console.log('trying to send: ' + this.singleMessage);
       const receiver=this.selectedConversation.user1==this.userService.loginUser.email?this.selectedConversation.user2:this.selectedConversation.user1;
@@ -178,8 +185,9 @@ this.channels.forEach((channel) => {
         }),
       });
       
+     }
+     this.singleMessage = ''; //clears the input
     }
-    
     
   }
   showConversation(convo:Conversation){
@@ -211,30 +219,34 @@ this.channels.forEach((channel) => {
     console.log(this.hasJoinedChannel);
   }
   createConversation():void{
-    const newConversation:Conversation = {
-      id: 1,
-      user1: this.userService.loginUser.email,
-      user2: this.newConversationReceiver,
-      role:"",
-      messages:[]
-    };
-    this.client.publish({
-      destination: `/app/dm/${this.newConversationReceiver}`,
-      body: JSON.stringify(newConversation),
-    });
-    
-    
-    this.http.post('http://localhost:8088/api/v1/direct-message/dm/createConversation', newConversation, {
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .subscribe(response => {
-      console.log('Conversation created successfully', response);
-    }, error => {
-      console.error('Error creating conversation', error);
-    });
-    setTimeout(() => {
-      this.http.get<Conversation[]>('http://localhost:8088/api/v1/direct-message/'+this.userService.loginUser.email).subscribe((conversations)=>this.conversations=conversations);
-  }, 2000);
+    if(this.newConversationReceiver.trim()){
+      const newConversation:Conversation = {
+        id: 1,
+        user1: this.userService.loginUser.email,
+        user2: this.newConversationReceiver,
+        role:"",
+        messages:[]
+      };
+      this.client.publish({
+        destination: `/app/dm/${this.newConversationReceiver}`,
+        body: JSON.stringify(newConversation),
+      });
+      
+      
+      this.http.post('http://localhost:8088/api/v1/direct-message/dm/createConversation', newConversation, {
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .subscribe(response => {
+        console.log('Conversation created successfully', response);
+      }, error => {
+        console.error('Error creating conversation', error);
+      });
+      setTimeout(() => {
+        this.http.get<Conversation[]>('http://localhost:8088/api/v1/direct-message/'+this.userService.loginUser.email).subscribe((conversations)=>this.conversations=conversations);
+    }, 2000);
+      this.newConversationReceiver = ''; //clears the input
+    }
+   
   
     
 
