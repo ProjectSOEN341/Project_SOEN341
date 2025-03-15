@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: '22.x'
       - run: echo "running npm ci"
+      - run: npm install
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
