@@ -70,7 +70,7 @@
       @for(conversation of conversations;track conversation){
       @if(conversation.user1==this.userService.loginUser.email){
       <button
-      
+        class="conversation-button"
         mat-raised-button
         color="primary"
         (click)="selectConversation(conversation)"
