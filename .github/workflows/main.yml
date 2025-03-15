@@ -21,9 +21,13 @@ jobs:
           echo "test('Empty test 1', () => { expect(true).toBe(true); });" > tests/placeholder1.test.js
           echo "test('Empty test 2', () => { expect(true).toBe(true); });" > tests/placeholder2.test.js
           mkdir -p test_files
+          echo "running unit tests"
+          npm test
           echo "import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; class PlaceholderTest1 { @Test void testPlaceholder1() { assertTrue(true); } }" > test_files/PlaceholderTest1.java
           echo "import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; class PlaceholderTest2 { @Test void testPlaceholder2() { assertTrue(true); } }" > test_files/PlaceholderTest2.java
           echo "Tests will be added in future sprints. CI is set up."
 
       - name: run unit test
-        run: npm test
+        run: 
+          npm test
+        working-directory: ./frontend
