@@ -26,4 +26,4 @@ jobs:
           echo "Tests will be added in future sprints. CI is set up."
 
       - name: run unit test
-        run: ng test
+        run: npm test
