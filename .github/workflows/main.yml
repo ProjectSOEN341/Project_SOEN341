@@ -15,7 +15,5 @@ jobs:
       - run: node --version
       - run: npm install
         working-directory: ./soen341-frontend
-      - run: npm ci
-        working-directory: ./soen341-frontend
       - run: npm run test:ci
         working-directory: ./soen341-frontend
