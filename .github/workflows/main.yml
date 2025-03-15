@@ -7,8 +7,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - run: echo "running npm ci"
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+
+      - name: unit test
+        uses: actions/checkout@v4
 
       - name: Install dependencies (if applicable)
         run: |
@@ -26,8 +36,3 @@ jobs:
           echo "import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; class PlaceholderTest1 { @Test void testPlaceholder1() { assertTrue(true); } }" > test_files/PlaceholderTest1.java
           echo "import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; class PlaceholderTest2 { @Test void testPlaceholder2() { assertTrue(true); } }" > test_files/PlaceholderTest2.java
           echo "Tests will be added in future sprints. CI is set up."
-
-      - name: run unit test
-        run: 
-          npm test
-        working-directory: ./frontend
