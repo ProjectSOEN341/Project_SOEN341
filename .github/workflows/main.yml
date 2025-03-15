@@ -12,10 +12,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          working-directory: ./soen341-frontend
+          cache: 'npm'
+          cache-dependency-path: ./soen341-frontend/package-lock.json 
       - run: node --version
       - run: npm install
-        working-directory: ./soen341-frontend
       - run: npm ci
         working-directory: ./soen341-frontend
       - run: npm test
