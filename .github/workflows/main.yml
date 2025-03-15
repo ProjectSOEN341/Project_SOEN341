@@ -17,5 +17,5 @@ jobs:
         working-directory: ./soen341-frontend
       - run: npm ci
         working-directory: ./soen341-frontend
-      - run: npm run test --browsers=ChromeHeadless
+      - run: npm run test:ci
         working-directory: ./soen341-frontend
