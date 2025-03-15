@@ -58,6 +58,7 @@ describe('ActivateAccountComponent', () => {
     expect(component.message).toBe('Token has been expired or invalid');
     expect(component.submitted).toBeTrue();
     expect(component.isOkay).toBeFalse();
+    expect(true).toBeFalse();
   });
 
   it('should navigate to login page', () => {
