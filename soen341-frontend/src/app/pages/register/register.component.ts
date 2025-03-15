@@ -8,8 +8,8 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-register',
   imports: [CommonModule, FormsModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register.component.html'/*,
+  styleUrls: ['./register.component.scss']*/
 })
 
 export class RegisterComponent {

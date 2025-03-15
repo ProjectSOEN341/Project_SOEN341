@@ -1,27 +1,23 @@
-name: CI Pipeline
+name: Run Unit Tests
 
-on: [push, pull_request]
+on:
+  pull_request:
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Install dependencies (if applicable)
-        run: |
-          if [ -f package.json ]; then npm install; fi
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          if [ -f pom.xml ]; then mvn install; fi
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      - name: Link to CI with multiple empty tests
-        run: |
-          mkdir -p tests
-          echo "test('Empty test 1', () => { expect(true).toBe(true); });" > tests/placeholder1.test.js
-          echo "test('Empty test 2', () => { expect(true).toBe(true); });" > tests/placeholder2.test.js
-          mkdir -p test_files
-          echo "import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; class PlaceholderTest1 { @Test void testPlaceholder1() { assertTrue(true); } }" > test_files/PlaceholderTest1.java
-          echo "import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; class PlaceholderTest2 { @Test void testPlaceholder2() { assertTrue(true); } }" > test_files/PlaceholderTest2.java
-          echo "Tests will be added in future sprints. CI is set up."
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test

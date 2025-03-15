@@ -9,8 +9,8 @@ import { CodeInputModule } from 'angular-code-input';
 @Component({
   selector: 'app-activate-account',
   imports: [CommonModule, FormsModule,CodeInputModule],
-  templateUrl: './activate-account.component.html',
-  styleUrls: ['./activate-account.component.scss']
+  templateUrl: './activate-account.component.html'/*,
+  styleUrls: ['./activate-account.component.scss']*/
 })
 export class ActivateAccountComponent {
 
