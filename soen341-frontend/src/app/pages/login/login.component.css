@@ -44,7 +44,7 @@ a:hover{
     align-items: center;
     cursor: pointer;
     border: 1px solid #616161;
-    /* color: #4343ff; */
+    color: #c7c6c6;
 }
 
 .input-field.error{
@@ -52,13 +52,15 @@ a:hover{
     color: red;
 }
 
-input[type='email'],
+input[type='text'],
 
 input[type='password']{
     border: none;
     outline: none;
     box-shadow: none;
     width: 100%;
+    background-color: transparent;
+    color: white;
 }
 
 .fa-eye-slash.btn{

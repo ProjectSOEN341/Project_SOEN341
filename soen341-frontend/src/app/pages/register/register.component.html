@@ -1,11 +1,59 @@
-
 <div class="outer">
   <div class="container">
     <div class="row">
       <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
         <div class="panel boder bg-dark">
           <div class="panel-heading">
-<!-- <div class="container-fluid card login-container"> -->
+    <h3 class="pt-3 font-weight-bold text-center">Sign Up</h3>
+    <hr>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+      <p *ngFor="let msg of errorMsg">{{msg}}</p>
+    </div>
+    <div class="panel-body p-3">
+      <div class="form-group pt-3">
+        <div class="input-field">
+          <span class="fa fa-user p-2"></span>
+          <input type="text" [(ngModel)]="registerRequest.firstname" placeholder="First Name">
+        </div>
+      </div>
+      <div class="form-group pt-3">
+        <div class="input-field">
+          <span class="fa fa-user p-2"></span>
+          <input type="text" [(ngModel)]="registerRequest.lastname" placeholder="Last Name">
+        </div>
+      </div>
+        <div class="form-group pt-3">
+          <div class="input-field">
+            <span class="fa fa-user p-2"></span>
+            <input type="text" [(ngModel)]="registerRequest.email" placeholder="name@example.com">
+          </div>
+        </div>
+          <div class="form-group pt-3">
+            <div class="input-field">
+              <span class="fa fa-lock p-2"></span>
+              <input [type]="type" [(ngModel)]="registerRequest.password" placeholder="Password">
+              <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+            </div>
+          </div>
+          <button (click)="register()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Sign up</button>
+          <div class="text-center pt-4 text-tertiary">Already have account? <a id="forget" href="/login">Login</a></div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<!-- <div class="outer">
+  <div class="container">
+    <div class="row">
+      <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+        <div class="panel boder bg-dark">
+          <div class="panel-heading">
     <h3 class="text-center">Create an account</h3>
     <hr>
     <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
@@ -21,11 +69,11 @@
     </div>
     <div class="mb-3">
       <label for="login" class="form-label">Email address</label>
-      <input [(ngModel)]="registerRequest.email" type="email" class="form-control" id="login" placeholder="name@example.com">
+      <input [(ngModel)]="registerRequest.email" type="text" class="form-control" id="login" placeholder="name@example.com">
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input [(ngModel)]="registerRequest.password" type="password" class="form-control" id="password" placeholder="Password">
+      <input [(ngModel)]="registerRequest.password" type="text" class="form-control" id="password" placeholder="Password">
     </div>
     <div class="d-flex justify-content-between mb-3">
       <button (click)="register()" type="button" class="btn btn-primary">
@@ -38,10 +86,9 @@
         </button>
       </div>
     </div>
-  <!-- </div> -->
 </div>
 </div>
 </div>
 </div>
 </div>
-</div>
+</div> -->
