@@ -20,11 +20,11 @@ class MockTokenService {
 }
 
 class MockUserService {
-  setLoginUser() {}
+  setLoginUser() { }
 }
 
 class MockRouter {
-  navigate() {}
+  navigate() { }
 }
 
 describe('LoginComponent', () => {
