@@ -30,7 +30,7 @@ export class DirectMessagesComponent {
     };
   }
 
-  /*setAliceReceive() {
+  setAliceReceive() {
     this.usernameReceive = '1';
     console.log('setting to alice');
   }
@@ -47,7 +47,7 @@ export class DirectMessagesComponent {
   setBobSend() {
     this.usernameSend = '2';
     console.log('setting to bob');
-  }*/
+  }
   connect() {
     this.client.activate();
     this.isConnected = true;

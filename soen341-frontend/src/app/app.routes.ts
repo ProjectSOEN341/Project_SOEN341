@@ -10,22 +10,13 @@ import { ActivateAccountComponent } from './pages/activate-account/activate-acco
 
 
 export const routes: Routes = [
-    {path: '', component:AppComponent},
-    {path: 'testing/dm', component: DirectMessagesComponent},
-    {path:'home', component: HomeComponent},
-    { 
-        path: 'login', 
-        component:LoginComponent
-    },
-    { 
-        path: 'register', 
-        component:RegisterComponent
-    },    
-    { 
-        path: 'activate-account', 
-        component:ActivateAccountComponent
-    },
-]
+    { path: '', component: LoginComponent },  // Make the login page the default (landing) page
+    { path: 'testing/dm', component: DirectMessagesComponent },
+    { path: 'home', component: HomeComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'activate-account', component: ActivateAccountComponent },
+];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
