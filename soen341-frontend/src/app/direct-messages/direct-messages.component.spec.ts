@@ -63,16 +63,6 @@ describe('DirectMessagesComponent', () => {
     });
   });
 
-  it('should set Alice as receiver', () => {
-    component.setAliceReceive();
-    expect(component.usernameReceive).toBe('1');
-  });
-
-  it('should set Bob as sender', () => {
-    component.setBobSend();
-    expect(component.usernameSend).toBe('2');
-  });
-
   it('should handle incoming messages', () => {
     component.showGreeting('Test message');
     expect(component.messages).toContain('Test message');
