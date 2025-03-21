@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9711c6d5-93d8-49af-8e01-04ef1a92a073" name="Changes" comment="Backend edits permitting frontend/backend communication during the authentication process" />
+    <list default="true" id="9711c6d5-93d8-49af-8e01-04ef1a92a073" name="Changes" comment="Backend edits permitting frontend/backend communication during the authentication process">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,6 +68,16 @@
     "accountId": "7ce852da-fe00-45e2-9990-c0c78880acc7"
   }
 }]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ProjectSOEN341/Project_SOEN341.git&quot;,
+    &quot;accountId&quot;: &quot;b643244d-d02d-4f92-9e8b-5bb416f4eaae&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -102,7 +115,16 @@
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="soen341.backend.BackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -122,7 +144,12 @@
       <workItem from="1738364838117" duration="1045000" />
       <workItem from="1738366602478" duration="160000" />
       <workItem from="1738366769851" duration="1489000" />
-      <workItem from="1742268277505" duration="700000" />
+      <workItem from="1741316139429" duration="571000" />
+      <workItem from="1741372499200" duration="1125000" />
+      <workItem from="1741388350884" duration="1609000" />
+      <workItem from="1742145556517" duration="2525000" />
+      <workItem from="1742398226537" duration="304000" />
+      <workItem from="1742494346140" duration="2865000" />
     </task>
     <servers />
   </component>
