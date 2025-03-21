@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Client } from '@stomp/stompjs';
 import { UserService } from '../services/userService.service';
@@ -15,7 +15,8 @@ import { User } from '../../interfaces/user';
   selector: 'app-home',
   imports: [CommonModule, MatButtonModule,FormsModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  encapsulation: ViewEncapsulation.ShadowDom  //disables bootstrap for this component
 })
 
 export class HomeComponent {

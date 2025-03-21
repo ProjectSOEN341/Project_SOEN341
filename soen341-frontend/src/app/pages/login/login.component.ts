@@ -18,6 +18,9 @@ import { UserService } from '../../services/userService.service';
 export class LoginComponent {
   authRequest : AuthenticationRequest = {email: '', password:''};
   errorMsg: Array<string> = [];
+  type: string = "password"
+  isText: boolean = false;
+  eyeIcon: string = "fa-eye-slash"
 
   constructor(
     private router: Router,
@@ -52,4 +55,12 @@ export class LoginComponent {
   register() {
     this.router.navigate(['register']);
   }
+
+  hideShowPass(){
+    this.isText = !this.isText;
+    this.isText ? this.eyeIcon = "fa-eye" : this.eyeIcon = "fa-eye-slash";
+    this.isText ? this.type = "text" : this.type = "password"
+  }
 }
+
+

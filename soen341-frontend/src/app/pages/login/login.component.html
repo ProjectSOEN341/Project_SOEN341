@@ -1,26 +1,101 @@
-<div class="container-fluid card login-container">
-    <h3 class="text-center">Login</h3>
-    <hr>
+
+<div class="outer">
+  <div class="container">
+    <div class="row">
+      <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+        <div class="panel boder bg-dark">
+          <div class="panel-heading">
+    <h3 class="pt-3 font-weight-bold text-center">Login</h3>
+   
     <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
       <p *ngFor="let msg of errorMsg">{{msg}}</p>
     </div>
-    <div class="mb-3">
-      <label for="login" class="form-label">Email address</label>
-      <input [(ngModel)]="authRequest.email"  type="email" class="form-control" id="login" placeholder="name@example.com">
+    <div class="panel-body p-3">
+        <div class="form-group pt-3">
+          <div class="input-field">
+            <span class="fa fa-user p-2"></span>
+            <input type="text" [(ngModel)]="authRequest.email" placeholder="Email">
+          </div>
+        </div>
+          <div class="form-group pt-3">
+            <div class="input-field">
+              <span class="fa fa-lock p-2"></span>
+              <input [type]="type" [(ngModel)]="authRequest.password" placeholder="Password">
+              <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+            </div>
+          </div>
+          <button (click)="login()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
+          <div class="text-center pt-4 text-tertiary">Don't have account? <a id="forget" href="/register">Sign up</a></div>
     </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input [(ngModel)]="authRequest.password" type="password" class="form-control" id="password" placeholder="Password">
-    </div>
-    <div class="d-flex justify-content-between mb-3">
-      <button (click)="login()" type="button" class="btn btn-primary">
-        <em class="fas fa-sign-in-alt">&nbsp;Sign in</em>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- <div class="container-fluid card login-container">
+  <h3 class="text-center">Login</h3>
+  <hr>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+    <p *ngFor="let msg of errorMsg">{{msg}}</p>
+  </div>
+  <div class="mb-3">
+    <label for="login" class="form-label">Email address</label>
+    <input [(ngModel)]="authRequest.email"  type="email" class="form-control" id="login" placeholder="name@example.com">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input [(ngModel)]="authRequest.password" type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <div class="d-flex justify-content-between mb-3">
+    <button (click)="login()" type="button" class="btn btn-primary">
+      <em class="fas fa-sign-in-alt">&nbsp;Sign in</em>
+    </button>
+    <div>
+      Don't have an account?&nbsp;
+      <button (click)="register()" type="button" class="btn btn-link">
+        Register
       </button>
-      <div>
-        Don't have an account?&nbsp;
-        <button (click)="register()" type="button" class="btn btn-link">
-          Register
-        </button>
-      </div>
     </div>
   </div>
+</div> -->
+
+
+
+
+
+  <!-- <div class="outer">
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+          <div class="panel boder bg-dark">
+            <div class="panel-heading">
+              <h3 class="pt-3 font-weight-bold">Login</h3>
+            </div>
+            <div class="panel-body p-3">
+              <form>
+                <div class="form-group pt-3">
+                  <div class="input-field">
+                    <span class="fa fa-user p-2"></span>
+                    <input type="text" placeholder="Username">
+                  </div>
+                </div>
+                  <div class="form-group pt-3">
+                    <div class="input-field">
+                      <span class="fa fa-lock p-2"></span>
+                      <input type="text" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-inline fr mt-4">
+                    <a id="forget" class="font-weight-bold">Forget Password?</a>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
+                  <div class="text-center pt-4 text-tertiary">Don't have account? <a href="/register">Sign up</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->

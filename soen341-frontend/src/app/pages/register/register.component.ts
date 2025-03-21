@@ -8,14 +8,17 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-register',
   imports: [CommonModule, FormsModule],
-  templateUrl: './register.component.html'/*,
-  styleUrls: ['./register.component.scss']*/
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 
 export class RegisterComponent {
 
   registerRequest: RegistrationRequest = {email: '', firstname: '', lastname: '', password: ''};
   errorMsg: Array<string> = [];
+  type: string = "password"
+  isText: boolean = false;
+  eyeIcon: string = "fa-eye-slash"
 
   constructor(
     private router: Router,
@@ -40,5 +43,11 @@ export class RegisterComponent {
           this.errorMsg = err.error.validationErrors;
         }
       });
+  }
+
+  hideShowPass(){
+    this.isText = !this.isText;
+    this.isText ? this.eyeIcon = "fa-eye" : this.eyeIcon = "fa-eye-slash";
+    this.isText ? this.type = "text" : this.type = "password"
   }
 }
