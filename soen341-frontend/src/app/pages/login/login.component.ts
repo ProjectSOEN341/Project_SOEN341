@@ -32,6 +32,7 @@ export class LoginComponent {
 
   login() {
     this.errorMsg = [];
+     
     this.authService.authenticate({
       body: this.authRequest
     }).subscribe({
@@ -46,7 +47,10 @@ export class LoginComponent {
         if (err.error.validationErrors) {
           this.errorMsg = err.error.validationErrors;
         } else {
-          this.errorMsg.push(err.error.error);
+         
+        this.errorMsg.push('This login is not valid');
+        
+         
         }
       }
     });
@@ -61,6 +65,6 @@ export class LoginComponent {
     this.isText ? this.eyeIcon = "fa-eye" : this.eyeIcon = "fa-eye-slash";
     this.isText ? this.type = "text" : this.type = "password"
   }
+  
 }
-
 
