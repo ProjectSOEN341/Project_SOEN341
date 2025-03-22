@@ -29,21 +29,52 @@ export class RegisterComponent {
   login() {
     this.router.navigate(['login']);
   }
+register() {
+  this.errorMsg = [];
 
-  register() {
-    this.errorMsg = [];
-    this.authService.register({
-      body: this.registerRequest
-    })
-      .subscribe({
-        next: () => {
-          this.router.navigate(['activate-account']);
-        },
-        error: (err) => {
-          this.errorMsg = err.error.validationErrors;
-        }
-      });
+  // Frontend validation
+  if (!this.registerRequest.firstname.trim()) {
+    this.errorMsg.push("First name is required.");
   }
+
+  if (!this.registerRequest.lastname.trim()) {
+    this.errorMsg.push("Last name is required.");
+  }
+
+  if (!this.registerRequest.email.trim()) {
+    this.errorMsg.push("Email is required.");
+  }
+
+  if (!this.registerRequest.password.trim()) {
+    this.errorMsg.push("Password is required.");
+  }
+
+  // If any errors, do not proceed
+  if (this.errorMsg.length > 0) return;
+
+  // Backend call if frontend validation passed
+  this.authService.register({
+    body: this.registerRequest
+  })
+    .subscribe({
+      next: () => {
+        this.router.navigate(['activate-account']);
+      },
+      error: (err) => {
+        this.errorMsg = [];
+
+        if (err.error && err.error.validationErrors) {
+          this.errorMsg = err.error.validationErrors;
+        } else if (err.error && err.error.message) {
+          this.errorMsg.push(err.error.message);
+        } else {
+          this.errorMsg.push("An unexpected error occurred. Please try again later.");
+          console.error("Unhandled error format:", err);
+        }
+      }
+    });
+}
+
 
   hideShowPass(){
     this.isText = !this.isText;
