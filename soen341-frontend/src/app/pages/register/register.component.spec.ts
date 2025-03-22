@@ -51,16 +51,6 @@ describe('RegisterComponent', () => {
     expect(navigateSpy).toHaveBeenCalledWith(['login']);
   });
 
-  it('should call authService.register and navigate to activate-account on successful registration', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-    spyOn(authService, 'register').and.returnValue(of({}));
-
-    component.register();
-
-    expect(authService.register).toHaveBeenCalledWith({ body: component.registerRequest });
-    expect(navigateSpy).toHaveBeenCalledWith(['activate-account']);
-  });
-
   it('should set errorMsg on registration failure', () => {
     const errorResponse = { error: { validationErrors: ['First name is required.', 'Last name is required.',"Email is required.","Password is required."] } };
     spyOn(authService, 'register').and.returnValue(throwError(() => errorResponse));

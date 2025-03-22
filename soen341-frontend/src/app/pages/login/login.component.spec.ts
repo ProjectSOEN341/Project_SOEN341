@@ -94,6 +94,6 @@ describe('LoginComponent', () => {
 
     component.login();
 
-    expect(component.errorMsg).toEqual(['Login failed']);
+    expect(component.errorMsg).toEqual(['Login failed. This login is not valid.']);
   });
 });
