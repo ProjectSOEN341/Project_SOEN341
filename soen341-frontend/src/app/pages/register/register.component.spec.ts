@@ -62,11 +62,11 @@ describe('RegisterComponent', () => {
   });
 
   it('should set errorMsg on registration failure', () => {
-    const errorResponse = { error: { validationErrors: ['Error 1', 'Error 2'] } };
+    const errorResponse = { error: { validationErrors: ['First name is required.', 'Last name is required.',"Email is required.","Password is required."] } };
     spyOn(authService, 'register').and.returnValue(throwError(() => errorResponse));
 
     component.register();
 
-    expect(component.errorMsg).toEqual(['Error 1', 'Error 2']);
+    expect(component.errorMsg).toEqual(['First name is required.', 'Last name is required.',"Email is required.","Password is required."]);
   });
 });
