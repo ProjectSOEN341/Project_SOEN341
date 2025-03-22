@@ -1,4 +1,3 @@
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { AuthenticationService } from '../../services/services/authentication.service';
@@ -68,9 +67,35 @@ describe('LoginComponent', () => {
     expect(navigateSpy).toHaveBeenCalledWith(['register']);
   });
 
+  it('should not authenticate if email or password is missing', () => {
+    component.authRequest = { email: '', password: '' };
+    const authSpy = spyOn(authService, 'authenticate');
+    component.login();
+    expect(authSpy).not.toHaveBeenCalled();
+    expect(component.errorMsg).toContain("Email is required.");
+    expect(component.errorMsg).toContain("Password is required.");
+  });
+
+  it('should not authenticate if email format is invalid', () => {
+    component.authRequest = { email: 'invalidemail', password: 'password123' };
+    const authSpy = spyOn(authService, 'authenticate');
+    component.login();
+    expect(authSpy).not.toHaveBeenCalled();
+    expect(component.errorMsg).toContain("Email must contain '@'.");
+  });
+
+  it('should not authenticate if password is less than 8 characters', () => {
+    component.authRequest = { email: 'user@example.com', password: 'short' };
+    const authSpy = spyOn(authService, 'authenticate');
+    component.login();
+    expect(authSpy).not.toHaveBeenCalled();
+    expect(component.errorMsg).toContain("Password must be at least 8 characters long.");
+  });
+
   it('should authenticate and navigate to home on successful login', () => {
     const navigateSpy = spyOn(router, 'navigate');
     const setLoginUserSpy = spyOn(userService, 'setLoginUser');
+    component.authRequest = { email: 'user@example.com', password: 'validpass123' };
 
     component.login();
 
@@ -79,21 +104,25 @@ describe('LoginComponent', () => {
     expect(navigateSpy).toHaveBeenCalledWith(['home']);
   });
 
-  it('should set errorMsg on login failure with validation errors', () => {
+  it('should set errorMsg on login failure with validation errors from backend', () => {
     const errorResponse = { error: { validationErrors: ['Invalid email', 'Invalid password'] } };
     spyOn(authService, 'authenticate').and.returnValue(throwError(() => errorResponse));
 
+    component.authRequest = { email: 'user@example.com', password: 'validpass123' };
     component.login();
 
     expect(component.errorMsg).toEqual(['Invalid email', 'Invalid password']);
+    expect(component.loginError).toBe('');
   });
 
-  it('should set errorMsg on login failure with generic error', () => {
+  it('should set loginError on login failure with generic error from backend', () => {
     const errorResponse = { error: { error: 'Login failed. This login is not valid.' } };
     spyOn(authService, 'authenticate').and.returnValue(throwError(() => errorResponse));
 
+    component.authRequest = { email: 'user@example.com', password: 'validpass123' };
     component.login();
 
-    expect(component.errorMsg).toEqual(['Login failed. This login is not valid.']);
+    expect(component.loginError).toBe('Login failed. This login is not valid.');
+    expect(component.errorMsg).toEqual([]);
   });
 });

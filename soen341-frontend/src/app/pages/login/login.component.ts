@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../services/services/authentication.serv
 import {TokenService} from '../../services/token/token.service';
 import { UserService } from '../../services/userService.service';
 
+
 @Component({
   selector: 'app-login',
 //  standalone: true,
@@ -29,32 +30,46 @@ export class LoginComponent {
     private userService:UserService
   ) {
   }
+loginError: string = ''; 
+login() {
+  this.errorMsg = [];
+  this.loginError = '';
 
-  login() {
-    this.errorMsg = [];
-     
-    this.authService.authenticate({
-      body: this.authRequest
-    }).subscribe({
-      next: (res) => {
-        this.tokenService.token = res.token as string;
-        this.router.navigate(['home']);
-        this.userService.setLoginUser(this.authRequest);
-        
-      },
-      error: (err) => {
-        console.log(err);
-        if (err.error.validationErrors) {
-          this.errorMsg = err.error.validationErrors;
-        } else {
-         
-        this.errorMsg.push('Login failed. This login is not valid.');
-        
-         
-        }
-      }
-    });
+  // Frontend validation
+  if (!this.authRequest.email.trim()) {
+    this.errorMsg.push("Email is required.");
+  } else if (!this.authRequest.email.includes('@')) {
+    this.errorMsg.push("Email must contain '@'.");
   }
+
+  if (!this.authRequest.password.trim()) {
+    this.errorMsg.push("Password is required.");
+  } else if (this.authRequest.password.length < 8) {
+    this.errorMsg.push("Password must be at least 8 characters long.");
+  }
+
+  if (this.errorMsg.length > 0) return;
+
+  this.authService.authenticate({
+    body: this.authRequest
+  }).subscribe({
+    next: (res) => {
+      this.tokenService.token = res.token as string;
+      this.router.navigate(['home']);
+      this.userService.setLoginUser(this.authRequest);
+    },
+    error: (err) => {
+      console.log(err);
+      if (err.error?.validationErrors) {
+        this.errorMsg = err.error.validationErrors;
+      } else if (err.error?.error) {
+        this.loginError = err.error.error;
+      } else {
+        this.loginError = "An unexpected error occurred. Please try again later.";
+      }
+    }
+  });
+}
 
   register() {
     this.router.navigate(['register']);
@@ -65,6 +80,7 @@ export class LoginComponent {
     this.isText ? this.eyeIcon = "fa-eye" : this.eyeIcon = "fa-eye-slash";
     this.isText ? this.type = "text" : this.type = "password"
   }
-  
 }
+
+
 
