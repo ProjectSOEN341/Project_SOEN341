@@ -48,7 +48,7 @@ export class LoginComponent {
           this.errorMsg = err.error.validationErrors;
         } else {
          
-        this.errorMsg.push('This login is not valid');
+        this.errorMsg.push('Login failed. This login is not valid.');
         
          
         }

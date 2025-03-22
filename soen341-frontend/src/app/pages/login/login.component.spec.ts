@@ -89,7 +89,7 @@ describe('LoginComponent', () => {
   });
 
   it('should set errorMsg on login failure with generic error', () => {
-    const errorResponse = { error: { error: 'Login failed' } };
+    const errorResponse = { error: { error: 'Login failed. This login is not valid.' } };
     spyOn(authService, 'authenticate').and.returnValue(throwError(() => errorResponse));
 
     component.login();
