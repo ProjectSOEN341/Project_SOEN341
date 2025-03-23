@@ -26,11 +26,17 @@ export class RegisterComponent {
   ) {
   }
 
+
   login() {
     this.router.navigate(['login']);
   }
+
+
+
+  registerError: string = '';
 register() {
   this.errorMsg = [];
+  this.registerError = '';
 
   // Frontend validation
   if (!this.registerRequest.firstname.trim()) {
@@ -43,37 +49,40 @@ register() {
 
   if (!this.registerRequest.email.trim()) {
     this.errorMsg.push("Email is required.");
+  } else if (!this.registerRequest.email.includes('@')) {
+    this.errorMsg.push("Email must contain '@'.");
   }
 
   if (!this.registerRequest.password.trim()) {
     this.errorMsg.push("Password is required.");
+  } else if (this.registerRequest.password.length < 8) {
+    this.errorMsg.push("Password must be at least 8 characters long.");
   }
 
-  // If any errors, do not proceed
   if (this.errorMsg.length > 0) return;
 
-  // Backend call if frontend validation passed
   this.authService.register({
     body: this.registerRequest
-  })
-    .subscribe({
-      next: () => {
-        this.router.navigate(['activate-account']);
-      },
-      error: (err) => {
-        this.errorMsg = [];
+  }).subscribe({
+    next: () => {
+      this.router.navigate(['activate-account']);
+    },
+    error: (err) => {
+      this.registerError = '';
 
-        if (err.error && err.error.validationErrors) {
-          this.errorMsg = err.error.validationErrors;
-        } else if (err.error && err.error.message) {
-          this.errorMsg.push(err.error.message);
-        } else {
-          this.errorMsg.push("An unexpected error occurred. Please try again later.");
-          console.error("Unhandled error format:", err);
-        }
+      if (err.error?.validationErrors) {
+        this.errorMsg = err.error.validationErrors;
+      } else if (err.error?.message) {
+        this.registerError = err.error.message;
+      } else {
+        this.registerError = "An unexpected error occurred. Please try again later.";
+        console.error("Unhandled error format:", err);
       }
-    });
+    }
+  });
 }
+
+
 
 
   hideShowPass(){

@@ -42,7 +42,12 @@ describe('RegisterComponent', () => {
   });
 
   it('should initialize with empty registration request', () => {
-    expect(component.registerRequest).toEqual({ email: '', firstname: '', lastname: '', password: '' });
+    expect(component.registerRequest).toEqual({
+      email: '',
+      firstname: '',
+      lastname: '',
+      password: ''
+    });
   });
 
   it('should navigate to login when login() is called', () => {
@@ -51,12 +56,84 @@ describe('RegisterComponent', () => {
     expect(navigateSpy).toHaveBeenCalledWith(['login']);
   });
 
-  it('should set errorMsg on registration failure', () => {
-    const errorResponse = { error: { validationErrors: ['First name is required.', 'Last name is required.',"Email is required.","Password is required."] } };
-    spyOn(authService, 'register').and.returnValue(throwError(() => errorResponse));
+  it('should show required field errors for empty inputs', () => {
+    component.registerRequest = { email: '', firstname: '', lastname: '', password: '' };
+    component.register();
+
+    expect(component.errorMsg).toContain('First name is required.');
+    expect(component.errorMsg).toContain('Last name is required.');
+    expect(component.errorMsg).toContain('Email is required.');
+    expect(component.errorMsg).toContain('Password is required.');
+  });
+
+  it('should show error when email is missing @ symbol', () => {
+    component.registerRequest = {
+      firstname: 'John',
+      lastname: 'Doe',
+      email: 'invalidemail',
+      password: 'validpass123'
+    };
+    component.register();
+
+    expect(component.errorMsg).toContain("Email must contain '@'.");
+  });
+
+  it('should show error when password is less than 8 characters', () => {
+    component.registerRequest = {
+      firstname: 'Jane',
+      lastname: 'Smith',
+      email: 'jane@example.com',
+      password: 'short'
+    };
+    component.register();
+
+    expect(component.errorMsg).toContain('Password must be at least 8 characters long.');
+  });
+
+  it('should not proceed to backend if there are validation errors', () => {
+    const authSpy = spyOn(authService, 'register');
+    component.registerRequest = {
+      firstname: '',
+      lastname: '',
+      email: 'invalidemail',
+      password: '123'
+    };
+    component.register();
+
+    expect(authSpy).not.toHaveBeenCalled();
+    expect(component.errorMsg.length).toBeGreaterThan(0);
+  });
+
+  it('should proceed to backend and navigate on successful register', () => {
+    const authSpy = spyOn(authService, 'register').and.callThrough();
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.registerRequest = {
+      firstname: 'Test',
+      lastname: 'User',
+      email: 'test@example.com',
+      password: 'password123'
+    };
 
     component.register();
 
-    expect(component.errorMsg).toEqual(['First name is required.', 'Last name is required.',"Email is required.","Password is required."]);
+    expect(authSpy).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(['activate-account']);
+  });
+
+  it('should set registerError on generic backend error', () => {
+    const errorResponse = { error: { message: 'Something went wrong.' } };
+    spyOn(authService, 'register').and.returnValue(throwError(() => errorResponse));
+
+    component.registerRequest = {
+      firstname: 'John',
+      lastname: 'Doe',
+      email: 'john@example.com',
+      password: 'validpass123'
+    };
+
+    component.register();
+
+    expect(component.registerError).toBe('Something went wrong.');
   });
 });

@@ -35,21 +35,22 @@ login() {
   this.errorMsg = [];
   this.loginError = '';
 
-  // Frontend validation
-  if (!this.authRequest.email.trim()) {
+  const email = this.authRequest.email.trim();
+  const password = this.authRequest.password.trim();
+
+  // Check if either field is empty
+  if (!email) {
     this.errorMsg.push("Email is required.");
-  } else if (!this.authRequest.email.includes('@')) {
-    this.errorMsg.push("Email must contain '@'.");
   }
 
-  if (!this.authRequest.password.trim()) {
+  if (!password) {
     this.errorMsg.push("Password is required.");
-  } else if (this.authRequest.password.length < 8) {
-    this.errorMsg.push("Password must be at least 8 characters long.");
   }
 
+  // Don't call backend if either is missing
   if (this.errorMsg.length > 0) return;
 
+  // Proceed to login
   this.authService.authenticate({
     body: this.authRequest
   }).subscribe({
@@ -58,15 +59,9 @@ login() {
       this.router.navigate(['home']);
       this.userService.setLoginUser(this.authRequest);
     },
-    error: (err) => {
-      console.log(err);
-      if (err.error?.validationErrors) {
-        this.errorMsg = err.error.validationErrors;
-      } else if (err.error?.error) {
-        this.loginError = err.error.error;
-      } else {
-        this.loginError = "An unexpected error occurred. Please try again later.";
-      }
+    error: () => {
+      // Generic error on failure (hacker-safe)
+      this.loginError = "Invalid email or password.";
     }
   });
 }
