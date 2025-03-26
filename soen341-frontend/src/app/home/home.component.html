@@ -91,8 +91,13 @@
       } }
     </ul>
     <div class="admin-button-container">
-      <button class="admin-button" (click)="makeAdmin()">Become an Admin</button>
-      <button class="admin-button" (click)="makeMember()">Become a Member</button>
+      @if(this.userService.user.role=="admin"){ 
+        <button class="admin-button" (click)="makeMember()">Become a Member</button>
+      }
+      @else {
+        <button class="admin-button" (click)="makeAdmin()">Become an Admin</button>
+      }
+      
     </div>
     
     
