@@ -1,4 +1,3 @@
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { AuthenticationService } from '../../services/services/authentication.service';
@@ -58,42 +57,52 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with empty authRequest', () => {
-    expect(component.authRequest).toEqual({ email: '', password: '' });
+  it('should show both required errors when email and password are empty', () => {
+    component.authRequest = { email: '', password: '' };
+    component.login();
+    expect(component.errorMsg).toContain("Email is required.");
+    expect(component.errorMsg).toContain("Password is required.");
+    expect(component.loginError).toBe('');
   });
 
-  it('should navigate to register when register() is called', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-    component.register();
-    expect(navigateSpy).toHaveBeenCalledWith(['register']);
+  it('should show email required error only when email is missing', () => {
+    component.authRequest = { email: '', password: 'somepass' };
+    component.login();
+    expect(component.errorMsg).toContain("Email is required.");
+    expect(component.errorMsg).not.toContain("Password is required.");
+    expect(component.loginError).toBe('');
   });
 
-  it('should authenticate and navigate to home on successful login', () => {
+  it('should show password required error only when password is missing', () => {
+    component.authRequest = { email: 'user@example.com', password: '' };
+    component.login();
+    expect(component.errorMsg).toContain("Password is required.");
+    expect(component.errorMsg).not.toContain("Email is required.");
+    expect(component.loginError).toBe('');
+  });
+
+  it('should show generic login error on failed login', () => {
+    const errorResponse = { error: { error: 'Invalid login.' } };
+    spyOn(authService, 'authenticate').and.returnValue(throwError(() => errorResponse));
+
+    component.authRequest = { email: 'user@example.com', password: 'wrongpass' };
+    component.login();
+
+    expect(component.errorMsg.length).toBe(0);
+    expect(component.loginError).toBe("Invalid email or password.");
+  });
+
+  it('should login successfully with correct credentials', () => {
     const navigateSpy = spyOn(router, 'navigate');
     const setLoginUserSpy = spyOn(userService, 'setLoginUser');
 
+    component.authRequest = { email: 'user@example.com', password: 'correctpass' };
     component.login();
 
     expect(tokenService.token).toBe('mockToken');
     expect(setLoginUserSpy).toHaveBeenCalledWith(component.authRequest);
     expect(navigateSpy).toHaveBeenCalledWith(['home']);
-  });
-
-  it('should set errorMsg on login failure with validation errors', () => {
-    const errorResponse = { error: { validationErrors: ['Invalid email', 'Invalid password'] } };
-    spyOn(authService, 'authenticate').and.returnValue(throwError(() => errorResponse));
-
-    component.login();
-
-    expect(component.errorMsg).toEqual(['Invalid email', 'Invalid password']);
-  });
-
-  it('should set errorMsg on login failure with generic error', () => {
-    const errorResponse = { error: { error: 'Login failed' } };
-    spyOn(authService, 'authenticate').and.returnValue(throwError(() => errorResponse));
-
-    component.login();
-
-    expect(component.errorMsg).toEqual(['Login failed']);
+    expect(component.loginError).toBe('');
+    expect(component.errorMsg.length).toBe(0);
   });
 });

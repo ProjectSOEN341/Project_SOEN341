@@ -15,4 +15,5 @@ class TestcontainersConfiguration {
 		return new MySQLContainer<>(DockerImageName.parse("mysql:latest"));
 	}
 
+	
 }

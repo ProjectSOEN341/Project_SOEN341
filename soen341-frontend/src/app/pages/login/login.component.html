@@ -1,4 +1,3 @@
-
 <div class="outer">
   <div class="container">
     <div class="row">
@@ -7,6 +6,10 @@
           <div class="panel-heading">
     <h3 class="pt-3 font-weight-bold text-center">Login</h3>
    
+    <div class="alert alert-danger" role="alert" *ngIf="loginError">
+      {{ loginError }}
+    </div>
+
     <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
       <p *ngFor="let msg of errorMsg">{{msg}}</p>
     </div>
@@ -60,7 +63,6 @@
     </div>
   </div>
 </div> -->
-
 
 
 
