@@ -37,8 +37,10 @@ Role-Based User Permissions
 * Admins can create/delete channels and moderate messages (delete inappropriate ones).
 * Members can only send and view messages.
 
-Special Feature
-* TBD
+Special Feature - Authentication with Acitivition Code
+* Users can register
+* Users can activate their account through an activation code sent through email
+* Users can log in to their account
 
 ## Team Members
 * Arturo Sanchez       - 40283236 - [@DaKingzz](https://github.com//DaKingzz)
@@ -61,4 +63,6 @@ Database
 
 Extras
 * Agile Development
+* Google Java Format
+* ESLint
 
