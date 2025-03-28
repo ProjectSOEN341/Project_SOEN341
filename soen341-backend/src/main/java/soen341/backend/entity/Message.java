@@ -11,20 +11,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Message {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer id;
 
-    private String sender;
+  private String sender;
 
-    private String receiver;
+  private String receiver;
 
-    private String body;
+  private String body;
 
-    private String timestamp;
+  private String timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "conversation_id")
-    @JsonBackReference
-    private Conversation conversation;
+  @ManyToOne
+  @JoinColumn(name = "conversation_id")
+  @JsonBackReference
+  private Conversation conversation;
 }

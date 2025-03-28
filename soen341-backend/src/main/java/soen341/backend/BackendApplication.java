@@ -14,18 +14,16 @@ import soen341.backend.repository.RoleRepository;
 @EnableAsync
 public class BackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(BackendApplication.class, args);
+  }
 
-		@Bean
-		public CommandLineRunner runner(RoleRepository roleRepository) {
-			return args -> {
-				if(roleRepository.findByName("USER").isEmpty()) {
-					roleRepository.save(
-							Role.builder().name("USER").build()
-					);
-				}
-			};
-		}
+  @Bean
+  public CommandLineRunner runner(RoleRepository roleRepository) {
+    return args -> {
+      if (roleRepository.findByName("USER").isEmpty()) {
+        roleRepository.save(Role.builder().name("USER").build());
+      }
+    };
+  }
 }

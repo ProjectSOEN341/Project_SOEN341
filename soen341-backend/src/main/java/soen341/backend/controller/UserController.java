@@ -9,30 +9,26 @@ import soen341.backend.repository.UserRepository;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
-    @GetMapping("/{email}")
-    public UserDTO getUserEmailAndRole(@PathVariable String email) {
-        User tableUser= userRepository.findByEmail(email).orElse(null);
-        UserDTO user=new UserDTO();
-        if(tableUser!=null){
-            user.setEmail(tableUser.getEmail());
-            user.setRole(tableUser.getRole());
-        }
-        return user;
-
-
+  @GetMapping("/{email}")
+  public UserDTO getUserEmailAndRole(@PathVariable String email) {
+    User tableUser = userRepository.findByEmail(email).orElse(null);
+    UserDTO user = new UserDTO();
+    if (tableUser != null) {
+      user.setEmail(tableUser.getEmail());
+      user.setRole(tableUser.getRole());
     }
-    @PutMapping("/{email}/{role}")
-    public void updateUserRole(@PathVariable String email,@PathVariable String role) {
-        User user = userRepository.findByEmail(email).orElse(null);
-        if(user!=null && (role.equals("admin")||role.equals("member"))){
-            user.setRole(role);
-            userRepository.save(user);
-        }
-        return;
+    return user;
+  }
+
+  @PutMapping("/{email}/{role}")
+  public void updateUserRole(@PathVariable String email, @PathVariable String role) {
+    User user = userRepository.findByEmail(email).orElse(null);
+    if (user != null && (role.equals("admin") || role.equals("member"))) {
+      user.setRole(role);
+      userRepository.save(user);
     }
-
-
+    return;
+  }
 }

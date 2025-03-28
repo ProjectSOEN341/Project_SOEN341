@@ -11,29 +11,27 @@ import soen341.backend.repository.ChannelRepository;
 @Controller
 public class ChannelBrokerController {
 
-    @Autowired
-    private ChannelRepository channelRepository;
+  @Autowired private ChannelRepository channelRepository;
 
-    @MessageMapping("/channel/createInApp")
-    @SendTo("/topic/channel/newChannels")
-    public ChannelDTO transferConversation(ChannelDTO channelDTO)throws Exception{
+  @MessageMapping("/channel/createInApp")
+  @SendTo("/topic/channel/newChannels")
+  public ChannelDTO transferConversation(ChannelDTO channelDTO) throws Exception {
 
-        Channel channel = new Channel();
+    Channel channel = new Channel();
 
-        channel.setName(channelDTO.getName());
+    channel.setName(channelDTO.getName());
 
-        channel = channelRepository.save(channel);
+    channel = channelRepository.save(channel);
 
-        channelDTO.setId(channel.getId());
+    channelDTO.setId(channel.getId());
 
-        return channelDTO;
-    }
+    return channelDTO;
+  }
 
-    @MessageMapping("/channel/deleteInApp")
-    @SendTo("/topic/channel/deleteChannels")
-    public ChannelDTO deleteConversation(ChannelDTO channelDTO)throws Exception{
+  @MessageMapping("/channel/deleteInApp")
+  @SendTo("/topic/channel/deleteChannels")
+  public ChannelDTO deleteConversation(ChannelDTO channelDTO) throws Exception {
 
-        return channelDTO;
-    }
-
+    return channelDTO;
+  }
 }

@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChannelMessageDTO {
-    private Integer id;
+  private Integer id;
 
-    private String sender;
+  private String sender;
 
-    private String body;
+  private String body;
 
-    private String timestamp;
+  private String timestamp;
 
-    private Integer channelId;
+  private Integer channelId;
 }

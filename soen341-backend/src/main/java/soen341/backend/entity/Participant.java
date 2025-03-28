@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Participant {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer id;
 
-    private String user;
+  private String user;
 
-    @ManyToOne
-    @JoinColumn(name = "channel_id")
-    @JsonBackReference
-    private Channel channel;
+  @ManyToOne
+  @JoinColumn(name = "channel_id")
+  @JsonBackReference
+  private Channel channel;
 }

@@ -14,39 +14,38 @@ import soen341.backend.repository.ChannelRepository;
 
 @Controller
 public class ChannelMessageController {
-    @Autowired
-    private ChannelMessageRepository channelMessageRepository;
+  @Autowired private ChannelMessageRepository channelMessageRepository;
 
-    @Autowired
-    private ChannelRepository channelRepository;
+  @Autowired private ChannelRepository channelRepository;
 
-    @MessageMapping("/channel/sendMessage")
-    @SendTo("/topic/channel")
-    public ChannelMessageDTO sendMessage(ChannelMessageDTO channelMessageDTO) {
-        ChannelMessage channelMessage = new ChannelMessage();
+  @MessageMapping("/channel/sendMessage")
+  @SendTo("/topic/channel")
+  public ChannelMessageDTO sendMessage(ChannelMessageDTO channelMessageDTO) {
+    ChannelMessage channelMessage = new ChannelMessage();
 
-        channelMessage.setBody(channelMessageDTO.getBody());
-        channelMessage.setSender(channelMessageDTO.getSender());
-        channelMessage.setTimestamp(channelMessageDTO.getTimestamp());
+    channelMessage.setBody(channelMessageDTO.getBody());
+    channelMessage.setSender(channelMessageDTO.getSender());
+    channelMessage.setTimestamp(channelMessageDTO.getTimestamp());
 
-        Channel channel = channelRepository.getChannelById(channelMessageDTO.getChannelId());
-        channelMessage.setChannel(channel);
+    Channel channel = channelRepository.getChannelById(channelMessageDTO.getChannelId());
+    channelMessage.setChannel(channel);
 
-        System.out.println(channelMessageDTO.getChannelId());
+    System.out.println(channelMessageDTO.getChannelId());
 
-        ChannelMessage c=channelMessageRepository.save(channelMessage);
-        channelMessageDTO.setId(channelMessage.getId());
-        return channelMessageDTO;
-    }
-    @MessageMapping("/message/deleteInApp")
-    @SendTo("/topic/message/deleteMessage")
-    public ChannelMessageDTO deleteMessage(ChannelMessageDTO channelMessageDTO)throws Exception{
+    ChannelMessage c = channelMessageRepository.save(channelMessage);
+    channelMessageDTO.setId(channelMessage.getId());
+    return channelMessageDTO;
+  }
 
-        return channelMessageDTO;
-    }
+  @MessageMapping("/message/deleteInApp")
+  @SendTo("/topic/message/deleteMessage")
+  public ChannelMessageDTO deleteMessage(ChannelMessageDTO channelMessageDTO) throws Exception {
 
-    @DeleteMapping("/direct-message/{id}")
-    public void deleteMessage(@PathVariable int id){
-        channelMessageRepository.deleteById(id);
-    }
+    return channelMessageDTO;
+  }
+
+  @DeleteMapping("/direct-message/{id}")
+  public void deleteMessage(@PathVariable int id) {
+    channelMessageRepository.deleteById(id);
+  }
 }
