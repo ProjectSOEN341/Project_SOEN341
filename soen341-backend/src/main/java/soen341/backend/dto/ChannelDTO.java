@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChannelDTO {
-    private String name;
+  private String name;
 
-    private Integer id;
+  private Integer id;
 }

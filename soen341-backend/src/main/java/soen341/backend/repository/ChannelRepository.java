@@ -6,7 +6,5 @@ import soen341.backend.entity.Channel;
 
 @Repository
 public interface ChannelRepository extends CrudRepository<Channel, Integer> {
-    Channel getChannelById(int id);
-
-
+  Channel getChannelById(int id);
 }

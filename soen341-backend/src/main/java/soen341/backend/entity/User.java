@@ -1,19 +1,18 @@
 package soen341.backend.entity;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Getter
 @Setter
@@ -25,73 +24,73 @@ import java.util.stream.Collectors;
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
-    private String firstname;
-    private String lastname;
-    private LocalDateTime dateOfBirth;
-    @Column(unique = true)
-    private String email;
-    private String password;
-    private Boolean accountLocked;
-    private Boolean enabled;
-    private String role;
+  @Id @GeneratedValue private Integer id;
+  private String firstname;
+  private String lastname;
+  private LocalDateTime dateOfBirth;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+  @Column(unique = true)
+  private String email;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdDate;
-    @LastModifiedDate
-    @Column(insertable = false)
-    private LocalDateTime lastModifiedDate;
+  private String password;
+  private Boolean accountLocked;
+  private Boolean enabled;
+  private String role;
 
-    @Override
-    public String getName() {
-        return this.email;
-    }
+  @ManyToMany(fetch = FetchType.EAGER)
+  private List<Role> roles;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles
-                .stream()
-                .map(r -> new SimpleGrantedAuthority(r.getName()))
-                .collect(Collectors.toList());
-    }
+  @CreatedDate
+  @Column(nullable = false, updatable = false)
+  private LocalDateTime createdDate;
 
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
+  @LastModifiedDate
+  @Column(insertable = false)
+  private LocalDateTime lastModifiedDate;
 
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
+  @Override
+  public String getName() {
+    return this.email;
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return this.roles.stream()
+        .map(r -> new SimpleGrantedAuthority(r.getName()))
+        .collect(Collectors.toList());
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return !this.accountLocked;
-    }
+  @Override
+  public String getPassword() {
+    return this.password;
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public String getUsername() {
+    return this.email;
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return this.enabled;
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    public String getFullName(){
-        return this.firstname + " " + this.lastname;
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return !this.accountLocked;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return this.enabled;
+  }
+
+  public String getFullName() {
+    return this.firstname + " " + this.lastname;
+  }
 }

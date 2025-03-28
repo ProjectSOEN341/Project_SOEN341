@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageDTO {
 
-    public String sender;
-    public String receiver;
-    public String body;
-    public String timestamp;
+  public String sender;
+  public String receiver;
+  public String body;
+  public String timestamp;
 }

@@ -12,35 +12,32 @@ import soen341.backend.repository.ParticipantRepository;
 @RestController
 @RequestMapping("/channel")
 public class ChannelController {
-    @Autowired
-    private ChannelRepository channelRepository;
+  @Autowired private ChannelRepository channelRepository;
 
-    @Autowired
-    private ParticipantRepository participantRepository;
+  @Autowired private ParticipantRepository participantRepository;
 
-    @Autowired
-    private ChannelMessageRepository channelMessageRepository;
+  @Autowired private ChannelMessageRepository channelMessageRepository;
 
-    @PostMapping(path = "/createChannel")
-    public void createConversation(@RequestBody ChannelDTO channelDTO) {
-        Channel newChannel = new Channel();
+  @PostMapping(path = "/createChannel")
+  public void createConversation(@RequestBody ChannelDTO channelDTO) {
+    Channel newChannel = new Channel();
 
-        newChannel.setName(channelDTO.getName());
+    newChannel.setName(channelDTO.getName());
 
-        channelRepository.save(newChannel);
-    }
+    channelRepository.save(newChannel);
+  }
 
-    @GetMapping("/retrieveAllChannel")
-    public @ResponseBody Iterable<Channel> getAllChannel() {
-        return channelRepository.findAll();
-    }
+  @GetMapping("/retrieveAllChannel")
+  public @ResponseBody Iterable<Channel> getAllChannel() {
+    return channelRepository.findAll();
+  }
 
-    @DeleteMapping("/{id}")
-    @Transactional
-    public void deleteChannel(@PathVariable int id){
-        participantRepository.deleteByChannelId(id);
-        channelMessageRepository.deleteByChannelId(id);
+  @DeleteMapping("/{id}")
+  @Transactional
+  public void deleteChannel(@PathVariable int id) {
+    participantRepository.deleteByChannelId(id);
+    channelMessageRepository.deleteByChannelId(id);
 
-        channelRepository.deleteById(id);
-    }
+    channelRepository.deleteById(id);
+  }
 }

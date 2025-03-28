@@ -12,11 +12,13 @@ import soen341.backend.repository.UserRepository;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository repository;
+  private final UserRepository repository;
 
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        return repository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User not found "));
-    }
+  @Override
+  @Transactional
+  public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+    return repository
+        .findByEmail(userEmail)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found "));
+  }
 }

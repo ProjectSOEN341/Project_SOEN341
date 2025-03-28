@@ -6,5 +6,5 @@ import soen341.backend.entity.ChannelMessage;
 
 @Repository
 public interface ChannelMessageRepository extends CrudRepository<ChannelMessage, Integer> {
-    void deleteByChannelId(Integer channelId);
+  void deleteByChannelId(Integer channelId);
 }

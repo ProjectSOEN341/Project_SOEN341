@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ConversationDTO {
 
-    private String user1;
+  private String user1;
 
-    private String user2;
+  private String user2;
 
-    private int id;
+  private int id;
 
-    private String role;
+  private String role;
 
-    private MessageDTO[] messages;
+  private MessageDTO[] messages;
 }
