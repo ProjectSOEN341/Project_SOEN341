@@ -13,6 +13,7 @@ class MockAuthService {
 }
 
 class MockRouter {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   navigate() {}
 }
 

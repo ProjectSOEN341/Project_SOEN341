@@ -29,14 +29,15 @@
         (click)="selectChannel(channel)"
       >
         {{ channel.name }}
-        @if(this.userService.user.role=="admin"){
+        @if(this.userService.user.role==="admin"){
+          <!-- eslint-disable-next-line-->
           <span class="delete-x" (click)="deleteChannel(channel)" >X</span>
         }
         
       </button>
     </ul>
     <h3 *ngIf="view === 'dms'">Direct Messages</h3>
-    @if(view=='dms'){
+    @if(view ==='dms'){
     <div class="message-input">
       <input
         type="text"
@@ -50,7 +51,7 @@
     </div>
 
     } @else {
-      @if(this.userService.user.role=="admin"){
+      @if(this.userService.user.role ==="admin"){
         <div class="message-input">
           <input
             type="text"
@@ -68,7 +69,7 @@
 
     <ul *ngIf="view === 'dms'">
       @for(conversation of conversations;track conversation){
-      @if(conversation.user1==this.userService.loginUser.email){
+      @if(conversation.user1===this.userService.loginUser.email){
       <button
         class="conversation-button"
         mat-raised-button
@@ -91,7 +92,7 @@
       } }
     </ul>
     <div class="admin-button-container">
-      @if(this.userService.user.role=="admin"){ 
+      @if(this.userService.user.role==="admin"){ 
         <button class="admin-button" (click)="makeMember()">Become a Member</button>
       }
       @else {
@@ -104,9 +105,9 @@
   </div>
   
   <div class="messages">
-    @if(view == "dms") { @if(selectedConversation==undefined){
+    @if(view === "dms") { @if(selectedConversation===undefined){
     <h3>{{ "Selected a conversation" }}</h3>
-    } @else if(selectedConversation.user1==this.userService.loginUser.email){
+    } @else if(selectedConversation.user1===this.userService.loginUser.email){
     <h3>{{ selectedConversation.user2 }}</h3>
 
     } @else{
@@ -115,9 +116,9 @@
       
     <hr class="custom-line" />
     <div class="messages">
-      @if(selectedConversation!=undefined){ @for(message of
+      @if(selectedConversation!==undefined){ @for(message of
       selectedConversation.messages;track message){
-      @if(message.sender==this.userService.loginUser.email){
+      @if(message.sender===this.userService.loginUser.email){
       <div class="message-right message-bubble sent">
         {{ message.body }}
         
@@ -135,17 +136,19 @@
     <h3>{{ selectedChannel.name }}</h3>
     <div class="messages">
       @for (message of selectedChannel.channelMessages; track message) {
-        @if(message.sender==this.userService.loginUser.email){
+        @if(message.sender===this.userService.loginUser.email){
           <div class="message-bubble sent">
             <strong>{{ message.sender }}:</strong> {{ message.body }}
-            @if(this.userService.user.role=="admin"){
+            @if(this.userService.user.role==="admin"){
+              <!-- eslint-disable-next-line-->
               <span class="delete-x" (click)="deleteMessage(message)" >X</span>
             }
           </div>
         }
         @else{<div class="message-bubble">
           <strong>{{ message.sender }}:</strong> {{ message.body }}
-          @if(this.userService.user.role=="admin"){
+          @if(this.userService.user.role==="admin"){
+            <!-- eslint-disable-next-line-->
             <span class="delete-x" (click)="deleteMessage(message)"  >X</span>
           }
         </div>}
@@ -162,7 +165,7 @@
     <div class="messages"></div>
     }}
 
-    @if(view=='dms'||hasJoinedChannel){
+    @if(view==='dms'||hasJoinedChannel){
       <div class="message-input">
         <input
           [(ngModel)]="singleMessage"

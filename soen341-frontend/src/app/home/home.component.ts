@@ -5,7 +5,7 @@ import { Client } from '@stomp/stompjs';
 import { UserService } from '../services/userService.service';
 import { FormsModule } from '@angular/forms';
 import { Message } from '../../interfaces/message';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Conversation } from '../../interfaces/conversation';
 import { Channel } from '../../interfaces/channel';
 import { ChannelMessage } from '../../interfaces/channelMessage';
@@ -23,7 +23,7 @@ export class HomeComponent {
   private client: Client;
   url='http://localhost:8088/api/v1'
   messages: Message[] = [];
-  singleMessage: string = '';
+  singleMessage = '';
   message!: Message;
   newConversationReceiver='';
   selectedConversation!:Conversation;
@@ -211,12 +211,12 @@ this.channels.forEach((channel) => {
     }
     
     
-  hasJoinedChannel: Boolean = false;
+  hasJoinedChannel = false;
 
   selectChannel(channel: Channel) {
     this.selectedChannel = channel;
     console.log(channel);
-    this.http.get<Boolean>('http://localhost:8088/api/v1/participant/hasJoined/' + this.selectedChannel.id + "/" + this.userService.loginUser.email).subscribe((joined)=>this.hasJoinedChannel = joined);
+    this.http.get<boolean>('http://localhost:8088/api/v1/participant/hasJoined/' + this.selectedChannel.id + "/" + this.userService.loginUser.email).subscribe((joined)=>this.hasJoinedChannel = joined);
     console.log(this.hasJoinedChannel);
   }
   createConversation():void{
