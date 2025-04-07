@@ -2,8 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DirectMessagesComponent } from './direct-messages.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';  // Import CommonModule for standalone components
-import { Client } from '@stomp/stompjs';
-import { Message } from '../../interfaces/message';
 
 // Mock Client
 class MockClient {
@@ -29,6 +27,7 @@ describe('DirectMessagesComponent', () => {
 
     // Replace the real client with a mock
     mockClient = new MockClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (component as any).client = mockClient;
 
     fixture.detectChanges();

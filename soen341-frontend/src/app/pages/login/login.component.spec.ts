@@ -19,10 +19,12 @@ class MockTokenService {
 }
 
 class MockUserService {
+  // eslint-disable-next-line  @typescript-eslint/no-empty-function
   setLoginUser() { }
 }
 
 class MockRouter {
+   // eslint-disable-next-line  @typescript-eslint/no-empty-function
   navigate() { }
 }
 

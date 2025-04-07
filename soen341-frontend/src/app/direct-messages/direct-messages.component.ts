@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { Component} from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Message } from '../../interfaces/message';
 
 @Component({
@@ -14,10 +12,10 @@ import { Message } from '../../interfaces/message';
 export class DirectMessagesComponent {
   private client: Client;
   messages: string[] = [];
-  usernameReceive: string = '';
-  usernameSend: string = '';
-  isConnected: boolean = false;
-  singleMessage: string = '';
+  usernameReceive = '';
+  usernameSend= '';
+  isConnected = false;
+  singleMessage = '';
   message!: Message;
 
   constructor() {

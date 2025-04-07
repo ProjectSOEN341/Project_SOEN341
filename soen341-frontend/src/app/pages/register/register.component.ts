@@ -15,10 +15,10 @@ import { FormsModule } from '@angular/forms';
 export class RegisterComponent {
 
   registerRequest: RegistrationRequest = {email: '', firstname: '', lastname: '', password: ''};
-  errorMsg: Array<string> = [];
-  type: string = "password"
-  isText: boolean = false;
-  eyeIcon: string = "fa-eye-slash"
+  errorMsg: string[] = [];
+  type = "password"
+  isText = false;
+  eyeIcon = "fa-eye-slash"
 
   constructor(
     private router: Router,
@@ -33,7 +33,7 @@ export class RegisterComponent {
 
 
 
-  registerError: string = '';
+  registerError = '';
 register() {
   this.errorMsg = [];
   this.registerError = '';
@@ -82,12 +82,11 @@ register() {
   });
 }
 
-
-
-
   hideShowPass(){
     this.isText = !this.isText;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this.isText ? this.eyeIcon = "fa-eye" : this.eyeIcon = "fa-eye-slash";
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this.isText ? this.type = "text" : this.type = "password"
   }
 }

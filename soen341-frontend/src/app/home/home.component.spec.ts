@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { UserService } from '../services/userService.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
 
 class MockUserService {
   loginUser = { email: 'test@example.com' };
@@ -12,7 +11,6 @@ class MockUserService {
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let userService: MockUserService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,7 +22,6 @@ describe('HomeComponent', () => {
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    userService = TestBed.inject(UserService);
     fixture.detectChanges();
   });
 

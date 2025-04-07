@@ -2,13 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { CodeInputModule } from 'angular-code-input';
 import { AuthenticationService } from '../../services/services/authentication.service';
 import { ActivateAccountComponent } from './activate-account.component';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from '../login/login.component';
 
 describe('ActivateAccountComponent', () => {
   let component: ActivateAccountComponent;
